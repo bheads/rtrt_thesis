@@ -1,0 +1,13 @@
+rtrt - Real-Time Ray-Trace
+--------------------------------
+A Real-Time Ray-Trace for games.
+The ray-tracer is CPU, using SSE 3.5 and openMP for optimization.
+
+currently using libSIMBx86 for SSE operations.
+
+
+CMake Build System.
+
+
+
+
