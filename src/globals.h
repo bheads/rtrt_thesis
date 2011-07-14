@@ -1,3 +1,12 @@
+/**
+ *  \file   globals.h
+ *  \brief  Header files to includes commonly used libraries.
+ *
+ *      Loades commonly used header files.
+ *
+ *  \author Byron Heads <bheads@emich.edu>
+ *  \date   July 14, 2011
+ */
 
 #ifndef H_GLOBALS
 #define H_GLOBALS
