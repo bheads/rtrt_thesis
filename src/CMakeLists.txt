@@ -14,7 +14,7 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
     
     SET( BIN ../rtrt )
     
-    SET( LIBS SIMDx86  )
+    SET( LIBS )
 
     ADD_EXECUTABLE( ${BIN} ${SRC} )
     TARGET_LINK_LIBRARIES( ${BIN} ${LIBS} )

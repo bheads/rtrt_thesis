@@ -13,11 +13,9 @@
 #include <getopt.h>
 
 #include <string>
+#include <sstream>
 #include <iostream>
 #include <vector>
-
-// access SIMD instructions
-#include <SIMDx86/SIMDx86.h>
 
 // access OpenMP Functions
 #include <omp.h>
