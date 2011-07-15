@@ -2,6 +2,8 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
 
 #   rtrt build
     ADD_SUBDIRECTORY( src )
+#   rtrt testing
+    ADD_SUBDIRECTORY( src/test )
 
 #   Document Build System
     find_package(Doxygen)

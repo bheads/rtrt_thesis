@@ -31,12 +31,30 @@ namespace rt
               z, ///< z componant of vector.
               w; ///< w componant of vector, normally this should be zero.
 
+
+
+
+        /**
+         *  \brief Default constructor
+         *
+         *      Default constructor, all values are zero
+         */
+        vec4()
+            : x(0), y(0), z(0), w(0) {}
+        
+        /**
+         *  \brief Destructor
+         *
+         *      Destructor, does nothing here.
+         */
+        ~vec4() {}
+
         /**
          *  \brief Four float constructor
          *
          *      Constructor taking 4 flosting point numbers.  Defaults to 0.
          */
-        vec4( float _x=0, float _y=0, float _z=0, float _w=0 )
+        vec4( float _x, float _y=0, float _z=0, float _w=0 )
             : x(_x), y(_y), z(_z), w(_w) {}
 
         /**
@@ -68,6 +86,41 @@ namespace rt
          */
         vec4( const vec4 &v )
             : x(v.x), y(v.y), z(v.z), w(v.w) {}
+
+
+        /**
+         *  \brief Assignment operator.
+         *
+         *  Assignment operator.  Copies another vec4 object.
+         *
+         *  \param o Object to copy;
+         *  \return Refrence to self, is a copy of o
+         */
+        vec4 &operator=( const vec4 &o )
+        {
+            if( this != &o )
+            {
+                x = o.x;
+                y = o.y;
+                z = o.z;
+                w = o.w;
+            }
+            return *this;
+        }
+
+        /**
+         *  \brief Scalar assignment operator.
+         *
+         *   Scalar assignment operator.  Copies a scalar value.  W is copied.
+         *
+         *  \param v Scalar value to set vector to.
+         *  \return Refrence to self, is set to v.
+         */
+        vec4 &operator=( const float v )
+        {
+            x = y = z = w = v;
+            return *this;
+        }
 
     }__attribute__((aligned(16)));
 
