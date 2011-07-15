@@ -29,8 +29,8 @@
 // access OpenMP Functions
 #include <omp.h>
 
-#ifndef VERSION_IFNO
-#define VERSION_IFNO
+#ifndef VERSION_INFO
+#define VERSION_INFO
     #define VERSION 0.01f
     #define VERSION_STR "0.01a"
     #define NAME "RTRT"

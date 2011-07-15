@@ -16,7 +16,12 @@
 #include "../globals.h"
 #include "vec4.h"
 
-float dot( const vec4 &, const vec4 & ); ///< Compute dot product of teo vectors
+namespace rt
+{
+
+    float dot( const vec4 &, const vec4 & ); ///< Compute dot product of teo vectors
+
+}
 
 #endif
 
