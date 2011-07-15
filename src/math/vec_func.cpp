@@ -109,6 +109,52 @@ namespace rt
         return( vec4( o ));
     }
 
+
+    /**
+     *  \brief Adds two vec4s.
+     *
+     *      The method adds two vec4 objects togeather.  Uses SSE.
+     *
+     *  \param lhs Left hand side of operation.
+     *  \param rhs Right hand side of operation.
+     *  \return Returns lhs + rhs.
+     */
+    vec4 & operator+=( vec4 &lhs, const vec4 &rhs )
+    {
+        asm(    "movaps %1, %%xmm0 \n\t"
+                "movaps %2, %%xmm1 \n\t"
+                "addps %%xmm1, %%xmm0 \n\t"
+                "movaps %%xmm0, %0 \n\t"
+                : "=m"(lhs)
+                : "m"(lhs), "m"(rhs)
+                : "xmm0", "xmm1"
+           );
+        return( lhs );
+    }
+
+    /**
+     *  \brief Asss a vec4 by a scalar.
+     *
+     *      the method adds a vec4 with a scalar  Uses SSE.
+     *
+     *  \param lhs Left hand side of operation.
+     *  \param rhs Right hand side of operation.
+     *  \return Returns lhs + rhs.
+     */
+    vec4 & operator+=( vec4 &lhs, float rhs )
+    {
+        asm(    "movaps %1, %%xmm0 \n\t"
+                "movss %2, %%xmm1 \n\t"
+                "shufps $0x00, %%xmm1, %%xmm1 \n\t"
+                "addps %%xmm1, %%xmm0 \n\t"
+                "movaps %%xmm0, %0 \n\t"
+                : "=m"(lhs)
+                : "m"(lhs), "m"(rhs)
+                : "xmm0", "xmm1"
+           );
+        return( lhs );
+    }
+
     /**
      *  \brief subtracts two vec4s.
      *
@@ -203,6 +249,51 @@ namespace rt
         return( ret );
     }
 
+    /**
+     *  \brief  Subs two vec4s.
+     *
+     *      The method subs two vec4 objects togeather.  Uses SSE.
+     *
+     *  \param lhs Left hand side of operation.
+     *  \param rhs Right hand side of operation.
+     *  \return Returns lhs - rhs.
+     */
+    vec4 & operator-=( vec4 &lhs, const vec4 &rhs )
+    {
+        asm(    "movaps %1, %%xmm0 \n\t"
+                "movaps %2, %%xmm1 \n\t"
+                "subps %%xmm1, %%xmm0 \n\t"
+                "movaps %%xmm0, %0 \n\t"
+                : "=m"(lhs)
+                : "m"(lhs), "m"(rhs)
+                : "xmm0", "xmm1"
+           );
+        return( lhs );
+    }
+
+    /**
+     *  \brief  Subs a vec4 by a scalar.
+     *
+     *      the method subs a vec4 with a scalar  Uses SSE.
+     *
+     *  \param lhs Left hand side of operation.
+     *  \param rhs Right hand side of operation.
+     *  \return Returns lhs - rhs.
+     */
+    vec4 & operator-=( vec4 &lhs, float rhs )
+    {
+        asm(    "movaps %1, %%xmm0 \n\t"
+                "movss %2, %%xmm1 \n\t"
+                "shufps $0x00, %%xmm1, %%xmm1 \n\t"
+                "subps %%xmm1, %%xmm0 \n\t"
+                "movaps %%xmm0, %0 \n\t"
+                : "=m"(lhs)
+                : "m"(lhs), "m"(rhs)
+                : "xmm0", "xmm1"
+           );
+        return( lhs );
+    }
+
    /**
      *  \brief Multiplies two vec4s.
      *
@@ -273,6 +364,53 @@ namespace rt
                 : "xmm0", "xmm1"
            );
         return( ret );
+    }
+
+
+
+    /**
+     *  \brief  muls two vec4s.
+     *
+     *      the method muls two vec4 objects togeather.  Uses SSE.
+     *
+     *  \param lhs Left hand side of operation.
+     *  \param rhs Right hand side of operation.
+     *  \return Returns lhs * rhs.
+     */
+    vec4 & operator*=( vec4 &lhs, const vec4 &rhs )
+    {
+        asm(    "movaps %1, %%xmm0 \n\t"
+                "movaps %2, %%xmm1 \n\t"
+                "mulps %%xmm1, %%xmm0 \n\t"
+                "movaps %%xmm0, %0 \n\t"
+                : "=m"(lhs)
+                : "m"(lhs), "m"(rhs)
+                : "xmm0", "xmm1"
+           );
+        return( lhs );
+    }
+
+    /**
+     *  \brief  Muls a vec4 by a scalar.
+     *
+     *      the method mul a vec4 with a scalar  Uses SSE.
+     *
+     *  \param lhs Left hand side of operation.
+     *  \param rhs Right hand side of operation.
+     *  \return Returns lhs * rhs.
+     */
+    vec4 & operator*=( vec4 &lhs, float rhs )
+    {
+        asm(    "movaps %1, %%xmm0 \n\t"
+                "movss %2, %%xmm1 \n\t"
+                "shufps $0x00, %%xmm1, %%xmm1 \n\t"
+                "mulps %%xmm1, %%xmm0 \n\t"
+                "movaps %%xmm0, %0 \n\t"
+                : "=m"(lhs)
+                : "m"(lhs), "m"(rhs)
+                : "xmm0", "xmm1"
+           );
+        return( lhs );
     }
 
    /**
@@ -347,6 +485,51 @@ namespace rt
         return( ret );
     }
 
+
+    /**
+     *  \brief  Divs two vec4s.
+     *
+     *      the method divs two vec4 objects togeather.  Uses SSE.
+     *
+     *  \param lhs Left hand side of operation.
+     *  \param rhs Right hand side of operation.
+     *  \return Returns lhs / rhs.
+     */
+    vec4 & operator/=( vec4 &lhs, const vec4 &rhs )
+    {
+        asm(    "movaps %1, %%xmm0 \n\t"
+                "movaps %2, %%xmm1 \n\t"
+                "divps %%xmm1, %%xmm0 \n\t"
+                "movaps %%xmm0, %0 \n\t"
+                : "=m"(lhs)
+                : "m"(lhs), "m"(rhs)
+                : "xmm0", "xmm1"
+           );
+        return( lhs );
+    }
+
+    /**
+     *  \brief  Divs a vec4 by a scalar.
+     *
+     *      the method divs two vec4 objects togeather.  Uses SSE.
+     *
+     *  \param lhs Left hand side of operation.
+     *  \param rhs Right hand side of operation.
+     *  \return Returns lhs / rhs.
+     */
+    vec4 & operator/=( vec4 &lhs, float rhs )
+    {
+        asm(    "movaps %1, %%xmm0 \n\t"
+                "movss %2, %%xmm1 \n\t"
+                "shufps $0x00, %%xmm1, %%xmm1 \n\t"
+                "divps %%xmm1, %%xmm0 \n\t"
+                "movaps %%xmm0, %0 \n\t"
+                : "=m"(lhs)
+                : "m"(lhs), "m"(rhs)
+                : "xmm0", "xmm1"
+           );
+        return( lhs );
+    }
 
 
     /**

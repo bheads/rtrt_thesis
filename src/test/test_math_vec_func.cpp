@@ -32,6 +32,22 @@ SUITE( VecFuncTests )
         CHECK_CLOSE( d.y, +a.y, 0.00001 );
         CHECK_CLOSE( d.z, +a.z, 0.00001 );
         CHECK_CLOSE( d.w, +a.w, 0.00001 );
+
+        rt::vec4 e( 1, 2, 3, 4 );
+        e += a;
+        CHECK_CLOSE( e.x, 2, 0.00001 );
+        CHECK_CLOSE( e.y, 4, 0.00001 );
+        CHECK_CLOSE( e.z, 6, 0.00001 );
+        CHECK_CLOSE( e.w, 8, 0.00001 );
+
+        rt::vec4 f( 1, 2, 3, 4 );
+        f += 2;
+        CHECK_CLOSE( f.x, 1+2.0f, 0.00001 );
+        CHECK_CLOSE( f.y, 2+2.0f, 0.00001 );
+        CHECK_CLOSE( f.z, 3+2.0f, 0.00001 );
+        CHECK_CLOSE( f.w, 4+2.0f, 0.00001 );
+
+
     }
 
     TEST( Vec4Subtraction )
@@ -60,6 +76,20 @@ SUITE( VecFuncTests )
         CHECK_CLOSE( d.y, -a.y, 0.00001 );
         CHECK_CLOSE( d.z, -a.z, 0.00001 );
         CHECK_CLOSE( d.w, -a.w, 0.00001 );
+
+        rt::vec4 e( 1, 2, 3, 6 );
+        e -= a;
+        CHECK_CLOSE( e.x, 0, 0.00001 );
+        CHECK_CLOSE( e.y, 0, 0.00001 );
+        CHECK_CLOSE( e.z, 0, 0.00001 );
+        CHECK_CLOSE( e.w, 2, 0.00001 );
+
+        rt::vec4 f( 1, 2, 3, 4 );
+        f -= 2;
+        CHECK_CLOSE( f.x, 1-2.0f, 0.00001 );
+        CHECK_CLOSE( f.y, 2-2.0f, 0.00001 );
+        CHECK_CLOSE( f.z, 3-2.0f, 0.00001 );
+        CHECK_CLOSE( f.w, 4-2.0f, 0.00001 );
     }
 
     TEST( Vec4Multiplication )
@@ -82,6 +112,20 @@ SUITE( VecFuncTests )
         CHECK_CLOSE( c.y, 10 * b.y, 0.00001 );
         CHECK_CLOSE( c.z, 10 * b.z, 0.00001 );
         CHECK_CLOSE( c.w, 10 * b.w, 0.00001 );
+
+        rt::vec4 e( 1, 2, 3, 4 );
+        e *= a;
+        CHECK_CLOSE( e.x, 1, 0.00001 );
+        CHECK_CLOSE( e.y, 4, 0.00001 );
+        CHECK_CLOSE( e.z, 9, 0.00001 );
+        CHECK_CLOSE( e.w, 16, 0.00001 );
+
+        rt::vec4 f( 1, 2, 3, 4 );
+        f *= 2;
+        CHECK_CLOSE( f.x, 2.0f, 0.00001 );
+        CHECK_CLOSE( f.y, 4.0f, 0.00001 );
+        CHECK_CLOSE( f.z, 6.0f, 0.00001 );
+        CHECK_CLOSE( f.w, 8.0f, 0.00001 );
     }
 
 
@@ -105,6 +149,21 @@ SUITE( VecFuncTests )
         CHECK_CLOSE( c.y, 10 / b.y, 0.00001 );
         CHECK_CLOSE( c.z, 10 / b.z, 0.00001 );
         CHECK_CLOSE( c.w, 10 / b.w, 0.00001 );
+
+        rt::vec4 e( 1, 2, 3, 8 );
+        e /= a;
+        CHECK_CLOSE( e.x, 1, 0.00001 );
+        CHECK_CLOSE( e.y, 1, 0.00001 );
+        CHECK_CLOSE( e.z, 1, 0.00001 );
+        CHECK_CLOSE( e.w, 2, 0.00001 );
+
+        rt::vec4 f( 1, 2, 3, 4 );
+        f /= 2;
+        CHECK_CLOSE( f.x, 1/2.0f, 0.00001 );
+        CHECK_CLOSE( f.y, 2/2.0f, 0.00001 );
+        CHECK_CLOSE( f.z, 3/2.0f, 0.00001 );
+        CHECK_CLOSE( f.w, 4/2.0f, 0.00001 );
+
     }
 
 
