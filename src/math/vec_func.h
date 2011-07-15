@@ -23,11 +23,13 @@ namespace rt
     const vec4 operator+( const vec4 &, const vec4 & );
     const vec4 operator+( const vec4 &, float );
     const vec4 operator+( float, const vec4 & );
+    const vec4 operator+( const vec4 & );
 
     // Subtraction
     const vec4 operator-( const vec4 &, const vec4 & );
     const vec4 operator-( const vec4 &, float );
     const vec4 operator-( float, const vec4 & );
+    const vec4 operator-( const vec4 & );
 
     // Multiplication
     const vec4 operator*( const vec4 &, const vec4 & );
@@ -39,6 +41,7 @@ namespace rt
     const vec4 operator/( const vec4 &, float );
     const vec4 operator/( float, const vec4 & );
 
+    // Products
     float dot( const vec4 &, const vec4 & ); ///< Compute dot product of teo vectors
 
 }
