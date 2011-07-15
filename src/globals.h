@@ -29,13 +29,6 @@
 // access OpenMP Functions
 #include <omp.h>
 
-#ifndef VERSION_INFO
-#define VERSION_INFO
-    #define VERSION 0.01f
-    #define VERSION_STR "0.01a"
-    #define NAME "RTRT"
-#endif //VERSION_INFO
-
 
 #endif //H_GLOBALS
 

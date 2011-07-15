@@ -122,7 +122,7 @@ namespace rt
             return *this;
         }
 
-    }__attribute__((aligned(16)));
+    }__attribute__((aligned(16))); ///< Make sure this is 16 byte aligned. Can use movaps
 
     /**
      *  \typedef vec4 color
