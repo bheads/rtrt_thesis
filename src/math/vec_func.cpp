@@ -97,19 +97,6 @@ namespace rt
     }
 
     /**
-     *  \brief Uniary plus.
-     *
-     *      Uniary plus, returns a copy of o.     
-     *
-     *  \param o Object to copy
-     *  \return Returns a constant vec4 object that is the results of +o
-     */
-    const vec4 operator+( const vec4 &o )
-    {
-        return( vec4( o ));
-    }
-
-    /**
      *  \brief subtracts two vec4s.
      *
      *      The method subs two vec4 objects togeather.  Uses SSE.
@@ -181,27 +168,7 @@ namespace rt
         return( ret );
     }
 
-    /**
-     *  \brief Uniary minus
-     *
-     *      Uniary minus, returns a copy of o but negated
-     *
-     *  \param o Object to copy and negate
-     *  \return Returns a constant vec4 object that is the results of -o
-     */
-    const vec4 operator-( const vec4 &o )
-    {
-        vec4 ret;
-        asm(    "movaps %1, %%xmm1 \n\t"
-                "xorps %%xmm0, %%xmm0 \n\t"
-                "subps %%xmm1, %%xmm0 \n\t"
-                "movaps %%xmm0, %0 \n\t"
-                : "=m"(ret)
-                : "m"(o)
-                : "xmm0", "xmm1"
-           );
-        return( ret );
-    }
+
 
    /**
      *  \brief Multiplies two vec4s.

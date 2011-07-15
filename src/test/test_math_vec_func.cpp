@@ -27,13 +27,6 @@ SUITE( VecFuncTests )
         CHECK_CLOSE( c.z, 10 + b.z, 0.00001 );
         CHECK_CLOSE( c.w, 10 + b.w, 0.00001 );
 
-        rt::vec4 d = +a;
-        CHECK_CLOSE( d.x, +a.x, 0.00001 );
-        CHECK_CLOSE( d.y, +a.y, 0.00001 );
-        CHECK_CLOSE( d.z, +a.z, 0.00001 );
-        CHECK_CLOSE( d.w, +a.w, 0.00001 );
-
-
     }
 
     TEST( Vec4Subtraction )
@@ -56,12 +49,6 @@ SUITE( VecFuncTests )
         CHECK_CLOSE( c.y, 10 - b.y, 0.00001 );
         CHECK_CLOSE( c.z, 10 - b.z, 0.00001 );
         CHECK_CLOSE( c.w, 10 - b.w, 0.00001 );
-                
-        rt::vec4 d = -a;
-        CHECK_CLOSE( d.x, -a.x, 0.00001 );
-        CHECK_CLOSE( d.y, -a.y, 0.00001 );
-        CHECK_CLOSE( d.z, -a.z, 0.00001 );
-        CHECK_CLOSE( d.w, -a.w, 0.00001 );
 
     }
 
