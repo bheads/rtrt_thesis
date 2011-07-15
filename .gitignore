@@ -1,3 +1,4 @@
 *.swp
 src/*.swp
 *.swo
+*.DS_Store
