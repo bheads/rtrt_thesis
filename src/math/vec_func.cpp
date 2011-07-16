@@ -531,7 +531,6 @@ namespace rt
         return( lhs );
     }
 
-
     /**
      *  \brief Computes the dot product of two vectors, uses SSE.
      *
@@ -560,6 +559,67 @@ namespace rt
                 : "xmm0", "xmm1"
            );
         return ret;
+    }
+
+    /**
+     *  \breif Compute the cross product of vec4 a and b, returns a const vec4.
+     *
+     *      This vecrion of cross produces a copy of a new cross product.  This is
+     *  a simpler way to use the cross product, but is slow since it makes copies.
+     *  For real-time usage, use the other cross function.
+     *
+     *  \param a First vec4 of the cross product.
+     *  \param b Secound vec4 in the cross product.
+     *  \return Returns a const copy of the cross product vec4.
+     */
+    const vec4 cross( const vec4 &a, const vec4 &b )
+    { 
+        /*
+        shufps XMM0, XMM0, 0xD8;
+        shufps XMM1, XMM1, 0xE1;
+        mulps XMM0, XMM1;
+        shufps XMM2, XMM2, 0xE1;
+        shufps XMM3, XMM3, 0xD8;
+        mulps XMM2, XMM3;
+        subps XMM0, XMM2;
+        movups t, XMM0;
+         */
+        vec4 ret;
+        asm(    "movaps %1, %%xmm0 \n\t"
+                "movaps %2, %%xmm1 \n\t"
+                "movaps %%xmm0, %%xmm2 \n\t"
+                "movaps %%xmm1, %%xmm3 \n\t"
+                "shufps $0xC9, %%xmm0, %%xmm0 \n\t" // y z x w 1001 1100 9C
+                "shufps $0xD2, %%xmm1, %%xmm1 \n\t" // z x y w 0111 1000 78 
+                "shufps $0xD2, %%xmm2, %%xmm2 \n\t" // 3 0 2 1 1100 1001 C9
+                "shufps $0xC9, %%xmm3, %%xmm3 \n\t" // 3 1 0 2 1101 0010 D2
+                "mulps %%xmm1, %%xmm0 \n\t"
+                "mulps %%xmm3, %%xmm2 \n\t"
+                "subps %%xmm2, %%xmm0 \n\t"
+                "movaps %%xmm0, %0 \n\t"
+                : "=m"(ret)
+                : "m"( a ), "m"( b )
+                : "xmm0", "xmm1", "xmm2", "xmm3"
+           );
+        return( ret );
+    }
+
+    /**
+     *  \breif Compute the cross product of vec4 a and b, puts the result in dest.
+     *
+     *      Computes the cross product of a and b.  The result is stored in dest vec4.
+     *  This function if preferred over the other cross product function.  This one is
+     *  faster as it avoids extra copying. 
+     *
+     *  \param dest Holds the result of the cross product of a and b
+     *  \param a First vec4 of the cross product.
+     *  \param b Secound vec4 in the cross product.
+     *  \return Returns the refrence to dest, useful for passing into other functions.
+     */
+    vec4 &cross( vec4 &dest, const vec4 &a, const vec4 &b )
+    {   
+
+        return( dest );
     }
 
 }

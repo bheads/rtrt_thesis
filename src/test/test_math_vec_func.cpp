@@ -166,14 +166,36 @@ SUITE( VecFuncTests )
 
     }
 
-
-
     TEST( DotProduct )
     {
         CHECK_CLOSE( rt::dot( rt::vec4( 2.0f, 4.0f ), 
                     rt::vec4( 1.0f, 5.0f )), 22, 0.001 );
         CHECK_CLOSE( rt::dot( rt::vec4( 10.0f, 2.0f, 30.0f ), 
                     rt::vec4( 3.0f, 9.0f, 4.0f )), 168, 0.001 );
+        CHECK_CLOSE( rt::dot( rt::vec4( 1.0f, 2.0f, 3.0f, 4 ), 
+                    rt::vec4( 9, 8, 7, 6 )), 70, 0.001 );
+    }
+
+    TEST( CrossProduct )
+    {
+        /*b.set = [1,2,3,0];
+            a.set = [9,8,7,0];
+                assert( cross(a,b).cell == [10,-20,10,0], "Bad Cross Product" );
+                            c.set = 0;
+        */
+        rt::vec4 a( 3, -3, 1 ), b( 4, 9, 2 );
+        rt::vec4 c = cross( a, b );
+        CHECK_CLOSE( c.x, -15, 0.00001 );
+        CHECK_CLOSE( c.y, -2, 0.00001 );
+        CHECK_CLOSE( c.z, 39, 0.00001 );
+        CHECK_CLOSE( c.w, 0, 0.00001 );
+
+        rt::vec4 d( 3, -2, -2 ), e( -1, 0, 5 );
+        rt::vec4 f = cross( d, e );
+        CHECK_CLOSE( f.x, -10, 0.00001 );
+        CHECK_CLOSE( f.y, -13, 0.00001 );
+        CHECK_CLOSE( f.z, -2, 0.00001 );
+        CHECK_CLOSE( f.w, 0, 0.00001 );
     }
 }
 

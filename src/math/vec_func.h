@@ -52,6 +52,8 @@ namespace rt
 
     // Products
     float dot( const vec4 &, const vec4 & ); ///< Compute dot product of teo vectors
+    const vec4 cross( const vec4 &, const vec4 & ); ///< compute cross product as a new vec
+    vec4 &cross( vec4 &, const vec4 &, const vec4 & );///< compute cross into input param 
 
 }
 
