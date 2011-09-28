@@ -16,7 +16,7 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
     
     SET( BIN ../rtrt )
     
-    SET( LIBS )
+    SET( LIBS gflags glog )
 
     ADD_EXECUTABLE( ${BIN} ${SRC} )
     TARGET_LINK_LIBRARIES( ${BIN} ${LIBS} )
