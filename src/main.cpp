@@ -17,14 +17,29 @@
  */
 
 #include "globals.h"
+// running
+bool running = true;
 
 // googles logger
 #include <glog/logging.h>
 // google gflags
 #include <gflags/gflags.h>
 
+// glfw
+#include <GL/glfw.h>
+
+// handlers
+#include "handlers.h"
+#include "util/gl.h"
+
 /// proto-type for real main function
 int rtrt_main();
+
+// command line options
+DEFINE_int32( width, 800, "Set the screen width" );
+DEFINE_int32( height, 600, "Set the screen height" );
+DEFINE_bool( fullscreen, false, "Set the screen to fullscreen" );
+DEFINE_int32( interval, 30, "Screen refresh interval" );
 
 /**
  *  \brief Program entry point.  
@@ -69,7 +84,6 @@ int main( int argc, char **argv )
     return( retcode );
 }
 
-
 /**
  * \brief Programs real main function.
  *
@@ -81,9 +95,41 @@ int main( int argc, char **argv )
  */
 int rtrt_main()
 {
+    int major, minor, rev;
+    glfwGetVersion( &major, &minor, &rev );
+    LOG( INFO ) << "Using glfw " << major << "." << minor << "." << rev;
+    CHECK( glfwInit() == GL_TRUE ) << "Failed to initilize glfw: ";
+    
+    // create the main window, this needs to be updated with command line options
+    LOG(INFO) << "Creating a " << ( FLAGS_fullscreen ? "fullscreen" : "window"  ) <<
+        " app at " << FLAGS_width << "x" << FLAGS_height;
+    CHECK( glfwOpenWindow( FLAGS_width, FLAGS_height, 8, 8, 8, 0, 0, 0, 
+                ( FLAGS_fullscreen ? GLFW_FULLSCREEN : GLFW_WINDOW )) == GL_TRUE )
+        << "Failed to create a window";
+
+    // set swapInterval
+    LOG(INFO) << "Setting refreash interval to " << FLAGS_interval;
+    glfwSwapInterval( FLAGS_interval );
+
+    // set close handler
+    glfwSetWindowCloseCallback( close_handler );
+    // set key handler
+    glfwSetKeyCallback( key_handler );
+
+    // create main loop
+    while( running )
+    {
+        glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
 
 
 
+        // update screen, poll IO
+        glfwSwapBuffers();
+    }
+
+    // clean up glfw
+    glfwCloseWindow();
+    glfwTerminate();
     return( 0 );
 }
 

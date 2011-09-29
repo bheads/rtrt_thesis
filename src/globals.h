@@ -30,5 +30,8 @@
 #include <omp.h>
 
 
+// running varible
+extern bool running;
+
 #endif //H_GLOBALS
 
