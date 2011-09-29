@@ -10,7 +10,7 @@
 int gl_init()
 {
     /// set the clear color to black, not depth bufferis needed
-    glClearColor( 0.0f, 0.0f, 1.0f, 1.0f );
+    glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
 
     return GL_TRUE;
 }

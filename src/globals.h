@@ -19,8 +19,6 @@
 #include <cmath>
 #include <inttypes.h>
 
-#include <getopt.h>
-
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -32,6 +30,9 @@
 
 // running varible
 extern bool running;
+
+// program title
+#define __TITLE__ "Real-Time Ray Tracer Demo"
 
 #endif //H_GLOBALS
 

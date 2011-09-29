@@ -16,6 +16,7 @@
  *  \date   July 14, 2011
  */
 
+
 #include "globals.h"
 // running
 bool running = true;
@@ -106,6 +107,7 @@ int rtrt_main()
     CHECK( glfwOpenWindow( FLAGS_width, FLAGS_height, 8, 8, 8, 0, 0, 0, 
                 ( FLAGS_fullscreen ? GLFW_FULLSCREEN : GLFW_WINDOW )) == GL_TRUE )
         << "Failed to create a window";
+    glfwSetWindowTitle( __TITLE__ );
 
     // set swapInterval
     LOG(INFO) << "Setting refreash interval to " << FLAGS_interval;
@@ -116,10 +118,37 @@ int rtrt_main()
     // set key handler
     glfwSetKeyCallback( key_handler );
 
+    // inilize openGL
+    CHECK( gl_init() == GL_TRUE ) << "Failed to initilize OpenGL";
+
+    // setup frame rate counting varibles
+    double fps_time = glfwGetTime(), fps_delta = 0.0f, 
+           fps_last = glfwGetTime(), fps_current;
+    int fps_count = 0, fps_rate = 0; 
+    char title[1024];
+
     // create main loop
     while( running )
     {
-        glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
+        // compute fps and frame offset
+        fps_current = glfwGetTime();
+        fps_delta = fps_current - fps_last;
+        fps_count++;
+        if( fps_current - fps_time >= 1.0 )
+        {
+            fps_rate = fps_count;
+            fps_count = 0;
+            fps_time = fps_current;
+            sprintf( title, "%s (%d)", __TITLE__, fps_rate );
+            glfwSetWindowTitle( title );
+        }
+        fps_last = fps_current;
+
+
+
+
+        /// clear the screen
+        glClear( GL_COLOR_BUFFER_BIT );
 
 
 
