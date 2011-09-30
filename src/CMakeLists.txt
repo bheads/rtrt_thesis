@@ -6,8 +6,10 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS} -sse sse2")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS} -sse -sse2")
 
+    IF( APPLE )
 # cocoa lib
-    FIND_LIBRARY(COCOA_LIBRARY Cocoa)
+        FIND_LIBRARY(COCOA_LIBRARY Cocoa)
+    ENDIF( APPLE )
 
 # openGL
     FIND_LIBRARY(OpenGL_LIBRARY OpenGL OpenGLU )
@@ -31,11 +33,16 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
     SET( LIBS 
             gflags 
             glog 
-            ${COCOA_LIBRARY}
             ${OpenGL_LIBRARY}
             ${OpenGLU_LIBRARY}
             glfw
             )
+
+    IF( APPLE )
+        SET( LIBS ${LIBS}
+            ${COCOA_LIBRARY}
+           )
+    ENDIF( APPLE )
 
     ADD_EXECUTABLE( ${BIN} ${SRC} )
     TARGET_LINK_LIBRARIES( ${BIN} ${LIBS} )
