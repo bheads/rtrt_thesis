@@ -30,8 +30,8 @@ bool running = true;
 #include <GL/glfw.h>
 
 // handlers
-#include "handlers.h"
-#include "util/gl.h"
+#include "util/handlers/handlers.h"
+#include "util/gl/gl.h"
 
 /// proto-type for real main function
 int rtrt_main();
@@ -96,27 +96,8 @@ int main( int argc, char **argv )
  */
 int rtrt_main()
 {
-    int major, minor, rev;
-    glfwGetVersion( &major, &minor, &rev );
-    LOG( INFO ) << "Using glfw " << major << "." << minor << "." << rev;
-    CHECK( glfwInit() == GL_TRUE ) << "Failed to initilize glfw: ";
-    
-    // create the main window, this needs to be updated with command line options
-    LOG(INFO) << "Creating a " << ( FLAGS_fullscreen ? "fullscreen" : "window"  ) <<
-        " app at " << FLAGS_width << "x" << FLAGS_height;
-    CHECK( glfwOpenWindow( FLAGS_width, FLAGS_height, 8, 8, 8, 0, 0, 0, 
-                ( FLAGS_fullscreen ? GLFW_FULLSCREEN : GLFW_WINDOW )) == GL_TRUE )
-        << "Failed to create a window";
-    glfwSetWindowTitle( __TITLE__ );
-
-    // set swapInterval
-    LOG(INFO) << "Setting refreash interval to " << FLAGS_interval;
-    glfwSwapInterval( FLAGS_interval );
-
-    // set close handler
-    glfwSetWindowCloseCallback( close_handler );
-    // set key handler
-    glfwSetKeyCallback( key_handler );
+    // create the glfw windows
+    CHECK( create_window() == GL_TRUE ) << "Failed to create the glfw window";
 
     // inilize openGL
     CHECK( gl_init() == GL_TRUE ) << "Failed to initilize OpenGL";
@@ -144,9 +125,6 @@ int rtrt_main()
         }
         fps_last = fps_current;
 
-
-
-
         /// clear the screen
         glClear( GL_COLOR_BUFFER_BIT );
 
@@ -156,10 +134,8 @@ int rtrt_main()
         glfwSwapBuffers();
     }
 
-    // clean up glfw
-    glfwCloseWindow();
-    glfwTerminate();
+    // clean up glfw window
+    CHECK( destroy_window() == GL_TRUE ) << "Failed to destroy glfw window";
     return( 0 );
 }
-
 

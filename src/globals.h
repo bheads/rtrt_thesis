@@ -27,6 +27,13 @@
 // access OpenMP Functions
 #include <omp.h>
 
+// include google flags
+#include <gflags/gflags.h>
+
+DECLARE_bool( fullscreen );
+DECLARE_int32( width );
+DECLARE_int32( height );
+DECLARE_int32( interval );
 
 // running varible
 extern bool running;

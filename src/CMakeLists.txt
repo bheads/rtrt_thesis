@@ -16,12 +16,14 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
 
     SET( SRC  
             main.cpp
-            handlers/close.cpp
-            handlers/key.cpp
+            util/handlers/close.cpp
+            util/handlers/key.cpp
 
+            util/gl/create_window.cpp
+            util/gl/destroy_window.cpp
             util/gl/init.cpp
 
-            math/vec_func.cpp
+            util/math/vec_func.cpp
             )
     
     SET( BIN ../rtrt )

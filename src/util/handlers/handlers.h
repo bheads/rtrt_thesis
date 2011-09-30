@@ -1,17 +1,17 @@
 
+#ifndef H_HANDLERS
+#define H_HANDLERS
 
-#ifndef H_KEY
-#define H_KEY
-
-#include "../globals.h"
+#include "../../globals.h"
 
 #include <GL/glfw.h>
 #include <glog/logging.h>
 
+/// gets the close signal
+int GLFWCALL close_handler();
 
 /// gets the key pressed handler
 void GLFWCALL key_handler( int key, int action );
-
 
 
 #endif

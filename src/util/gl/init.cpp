@@ -1,6 +1,6 @@
 
 
-#include "init.h"
+#include "gl.h"
 
 /**
  *      Initlizes OpenGL for ray tracing.

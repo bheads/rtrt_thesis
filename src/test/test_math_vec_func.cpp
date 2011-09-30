@@ -2,7 +2,7 @@
 
 #include <UnitTest++/UnitTest++.h>
 
-#include "../math/math.h"
+#include "../util/math/math.h"
 
 SUITE( VecFuncTests )
 {

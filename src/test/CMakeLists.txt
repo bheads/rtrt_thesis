@@ -14,7 +14,7 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
             test_math_vec4.cpp
             test_math_vec_func.cpp
 
-            ../math/vec_func.cpp
+            ../util/math/vec_func.cpp
             )
     
     SET( BIN ../../test_rtrt )
