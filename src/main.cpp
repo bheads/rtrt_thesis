@@ -32,6 +32,7 @@ bool running = true;
 // handlers
 #include "util/handlers/handlers.h"
 #include "util/gl/gl.h"
+#include "util/fps/fps.h"
 
 /// proto-type for real main function
 int rtrt_main();
@@ -86,6 +87,16 @@ int main( int argc, char **argv )
 }
 
 /**
+  \brief fps callback function to set the windows title to match the frame rate
+*/
+void updateTitle( double delta, int32_t rate )
+{
+    char title[1024];
+    sprintf( title, "%s (%d)", __TITLE__, rate );
+    glfwSetWindowTitle( title );
+}
+
+/**
  * \brief Programs real main function.
  *
  *  rtrt_main is the real main, it is called this way as a way to trap any
@@ -103,34 +114,20 @@ int rtrt_main()
     CHECK( gl_init() == GL_TRUE ) << "Failed to initilize OpenGL";
 
     // setup frame rate counting varibles
-    double fps_time = glfwGetTime(), fps_delta = 0.0f, 
-           fps_last = glfwGetTime(), fps_current;
-    int fps_count = 0, fps_rate = 0; 
-    char title[1024];
+    FPS fps( &updateTitle );
 
     // create main loop
     while( running )
     {
         // compute fps and frame offset
-        fps_current = glfwGetTime();
-        fps_delta = fps_current - fps_last;
-        fps_count++;
-        if( fps_current - fps_time >= 1.0 )
-        {
-            fps_rate = fps_count;
-            fps_count = 0;
-            fps_time = fps_current;
-            sprintf( title, "%s (%d)", __TITLE__, fps_rate );
-            glfwSetWindowTitle( title );
-        }
-        fps_last = fps_current;
+        fps.update();
 
         /// clear the screen
         glClear( GL_COLOR_BUFFER_BIT );
 
+        // do work here!
 
-
-        // update screen, poll IO
+        /// update screen, poll IO
         glfwSwapBuffers();
     }
 

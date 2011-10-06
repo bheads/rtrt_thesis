@@ -25,6 +25,8 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
             util/gl/destroy_window.cpp
             util/gl/init.cpp
 
+            util/fps/fps.cpp
+
             util/math/vec_func.cpp
             )
     
