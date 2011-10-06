@@ -562,7 +562,7 @@ namespace rt
     }
 
     /**
-     *  \breif Compute the cross product of vec4 a and b, returns a const vec4.
+     *  \brief Compute the cross product of vec4 a and b, returns a const vec4.
      *
      *      This vecrion of cross produces a copy of a new cross product.  This is
      *  a simpler way to use the cross product, but is slow since it makes copies.
@@ -605,7 +605,7 @@ namespace rt
     }
 
     /**
-     *  \breif Compute the cross product of vec4 a and b, puts the result in dest.
+     *  \brief Compute the cross product of vec4 a and b, puts the result in dest.
      *
      *      Computes the cross product of a and b.  The result is stored in dest vec4.
      *  This function if preferred over the other cross product function.  This one is
@@ -620,6 +620,64 @@ namespace rt
     {   
 
         return( dest );
+    }
+
+
+    /**
+      \brief Clamp a color to min and max values
+
+            Clamps a color vector to a set min and max value.  This is used
+        to clamp a color to be used for rendering.
+
+        \param c Color to clamp
+        \param min Min clamp value
+        \param max Max clamp value
+        \returns refrence to clamped color
+    */
+    color &clamp( color &c, const float min, const float max )
+    {
+        asm(    "movaps %1, %%xmm0 \n\t"
+                "movss %2, %%xmm1 \n\t"
+                "shufps $0x00, %%xmm1, %%xmm1 \n\t"
+                "minps %%xmm1, %%xmm0 \n\t"
+                "movss %3, %%xmm1 \n\t"
+                "shufps $0x00, %%xmm1, %%xmm1 \n\t"
+                "maxps %%xmm1, %%xmm0 \n\t"
+                "movaps %%xmm0, %0 \n\t"
+                : "=m"(c)
+                : "m"(c), "m"(max), "m"(min)
+                : "xmm0", "xmm1"
+           );
+        return( c );
+    }
+
+    /**
+      \brief Clamp a copied color to min and max values
+
+            Clamps a color vector to a set min and max value.  This is used
+        to clamp a color to be used for rendering.
+
+        \param c Color to clamp
+        \param min Min clamp value
+        \param max Max clamp value
+        \returns refrence to copied clamped color
+    */
+    const color clamped( const color &c, const float min, const float max )
+    {
+        color ret;
+        asm(    "movaps %1, %%xmm0 \n\t"
+                "movss %2, %%xmm1 \n\t"
+                "shufps $0x00, %%xmm1, %%xmm1 \n\t"
+                "minps %%xmm1, %%xmm0 \n\t"
+                "movss %3, %%xmm1 \n\t"
+                "shufps $0x00, %%xmm1, %%xmm1 \n\t"
+                "maxps %%xmm1, %%xmm0 \n\t"
+                "movaps %%xmm0, %0 \n\t"
+                : "=m"(ret)
+                : "m"(c), "m"(max), "m"(min)
+                : "xmm0", "xmm1"
+           );
+        return( ret );
     }
 
 }

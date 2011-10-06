@@ -197,5 +197,43 @@ SUITE( VecFuncTests )
         CHECK_CLOSE( f.z, -2, 0.00001 );
         CHECK_CLOSE( f.w, 0, 0.00001 );
     }
+
+    TEST( ColorClamp )
+    {
+        rt::color a( 5.0, 6.0, -4.5, 1.9 ), b( 0.0, 1.0, 0.5, 3.00 );
+
+        rt::color ca = clamped( a );
+        CHECK_CLOSE( ca.x, 1.0000, 0.00001 );
+        CHECK_CLOSE( ca.y, 1.0000, 0.00001 );
+        CHECK_CLOSE( ca.z, 0.0000, 0.00001 );
+        CHECK_CLOSE( ca.w, 1.0000, 0.00001 );
+        CHECK_CLOSE( a.x, 5.0, 0.00001 );
+        CHECK_CLOSE( a.y, 6.0, 0.00001 );
+        CHECK_CLOSE( a.z, -4.5, 0.00001 );
+        CHECK_CLOSE( a.w, 1.9, 0.00001 );
+
+        rt::color cb = clamped( b, 1.0, 2.0 );
+        CHECK_CLOSE( cb.x, 1.0000, 0.00001 );
+        CHECK_CLOSE( cb.y, 1.0000, 0.00001 );
+        CHECK_CLOSE( cb.z, 1.0000, 0.00001 );
+        CHECK_CLOSE( cb.w, 2.0000, 0.00001 );
+        CHECK_CLOSE( b.x, 0.0, 0.00001 );
+        CHECK_CLOSE( b.y, 1.0, 0.00001 );
+        CHECK_CLOSE( b.z, 0.5, 0.00001 );
+        CHECK_CLOSE( b.w, 3.00, 0.00001 );
+
+
+        clamp( a );
+        CHECK_CLOSE( a.x, 1.0000, 0.00001 );
+        CHECK_CLOSE( a.y, 1.0000, 0.00001 );
+        CHECK_CLOSE( a.z, 0.0000, 0.00001 );
+        CHECK_CLOSE( a.w, 1.0000, 0.00001 );
+
+        clamp( b );
+        CHECK_CLOSE( b.x, 0.0000, 0.00001 );
+        CHECK_CLOSE( b.y, 1.0000, 0.00001 );
+        CHECK_CLOSE( b.z, 0.5, 0.00001 );
+        CHECK_CLOSE( b.w, 1.0, 0.00001 );
+    }
 }
 
