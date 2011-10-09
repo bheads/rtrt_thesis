@@ -41,10 +41,10 @@ bool running = true;
 int rtrt_main();
 
 // command line options
-DEFINE_int32( width, 800, "Set the screen width" );
-DEFINE_int32( height, 600, "Set the screen height" );
+DEFINE_int32( width, 640, "Set the screen width" );
+DEFINE_int32( height, 480, "Set the screen height" );
 DEFINE_bool( fullscreen, false, "Set the screen to fullscreen" );
-DEFINE_int32( interval, 60, "Screen refresh interval" );
+DEFINE_int32( interval, 0, "Screen refresh interval" );
 
 /**
  *  \brief Program entry point.  
