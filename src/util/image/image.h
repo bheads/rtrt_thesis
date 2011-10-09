@@ -56,6 +56,10 @@ namespace rt
             /// render the image to window frame buffer
             void _render();
 
+            size_t Width() { return width; }
+            size_t Height() { return height; }
+            color *Data() { return data; }
+
         private:
             color *data; ///< Rendering image color array
             size_t width, ///< Rendering image width

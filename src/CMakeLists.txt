@@ -32,6 +32,8 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
             util/math/vec_func.cpp
 
             util/image/image.cpp
+
+            util/rt/rt.cpp
             )
     
     SET( BIN ../rtrt )

@@ -35,6 +35,7 @@ bool running = true;
 #include "util/fps/fps.h"
 #include "util/math/math.h"
 #include "util/image/image.h"
+#include "util/rt/rt.h"
 
 
 /// proto-type for real main function
@@ -123,6 +124,9 @@ int rtrt_main()
     // create rendering image
     rt::Image img( FLAGS_width, FLAGS_height );
 
+    //
+    rt::RayTracer ray;
+
     // create main loop
     while( running )
     {
@@ -133,7 +137,8 @@ int rtrt_main()
         glClear( GL_COLOR_BUFFER_BIT );
 
         // do work here, replace this with the ray tracer
-        img._fill_random();
+        //img._fill_random();
+        ray._render( img.Data(), FLAGS_width, FLAGS_height );
 
         // render image to frame buffer
         img._render( );
@@ -141,6 +146,9 @@ int rtrt_main()
         /// update screen, poll IO
         glfwSwapBuffers();
     }
+
+    // delete render image
+    img._delete();
 
     // clean up glfw window
     CHECK( destroy_window() == GL_TRUE ) << "Failed to destroy glfw window";
