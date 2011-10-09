@@ -28,6 +28,8 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
             util/fps/fps.cpp
 
             util/math/vec_func.cpp
+
+            util/image/image.cpp
             )
     
     SET( BIN ../rtrt )

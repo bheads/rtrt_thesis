@@ -33,6 +33,9 @@ bool running = true;
 #include "util/handlers/handlers.h"
 #include "util/gl/gl.h"
 #include "util/fps/fps.h"
+#include "util/math/math.h"
+#include "util/image/image.h"
+
 
 /// proto-type for real main function
 int rtrt_main();
@@ -116,6 +119,11 @@ int rtrt_main()
     // setup frame rate counting varibles
     FPS fps( &updateTitle );
 
+    // create rendering image
+    rt::Image img( FLAGS_width, FLAGS_height );
+    // file the mage with debug data
+    img._fill_gradiant();
+
     // create main loop
     while( running )
     {
@@ -126,6 +134,9 @@ int rtrt_main()
         glClear( GL_COLOR_BUFFER_BIT );
 
         // do work here!
+
+        // render image to window
+        img._render();
 
         /// update screen, poll IO
         glfwSwapBuffers();
