@@ -3,8 +3,10 @@ CMAKE_MINIMUM_REQUIRED( VERSION 2.6 )
 
 # Make sure we can use opemMP
     FIND_PACKAGE(OpenMP REQUIRED )
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS} -sse sse2")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS} -sse -sse2")
+
+# use -pg for debugging 
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${OpenMP_C_FLAGS} -sse -sse2 -O3")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS} -sse -sse2 -O3")
 
     IF( APPLE )
 # cocoa lib

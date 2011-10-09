@@ -59,9 +59,23 @@ namespace rt
         }
     }
 
+    void Image::_fill_random()
+    {
+        //LOG( INFO ) << "Filling render image with random debug colors";
+//#pragma omp parallel for
+        for( size_t y = 0; y < height; ++y )
+        {
+            for( size_t x = 0; x < width; ++x )
+            {
+                data[ _offset( x, y ) ] = (float)rand()/(float)RAND_MAX;
+            }
+        }
+    }
 
     void Image::_render()
     {
+        // draw the image pixels, slow....
+        glDrawPixels( width, height, GL_RGBA, GL_FLOAT, data );
 
 
 

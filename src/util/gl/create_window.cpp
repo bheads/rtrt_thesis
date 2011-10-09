@@ -28,6 +28,15 @@ bool create_window()
     // set key handler
     glfwSetKeyCallback( key_handler );
 
+    // init GL view
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    glOrtho(0, FLAGS_width, FLAGS_height, 0, 0, 1);
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+
+    glDisable( GL_DEPTH_TEST );
+
     return( GL_TRUE );
 }
 

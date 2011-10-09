@@ -44,7 +44,7 @@ int rtrt_main();
 DEFINE_int32( width, 800, "Set the screen width" );
 DEFINE_int32( height, 600, "Set the screen height" );
 DEFINE_bool( fullscreen, false, "Set the screen to fullscreen" );
-DEFINE_int32( interval, 30, "Screen refresh interval" );
+DEFINE_int32( interval, 60, "Screen refresh interval" );
 
 /**
  *  \brief Program entry point.  
@@ -95,6 +95,7 @@ int main( int argc, char **argv )
 void updateTitle( double delta, int32_t rate )
 {
     char title[1024];
+    LOG( INFO ) << "FPS: " << rate;
     sprintf( title, "%s (%d)", __TITLE__, rate );
     glfwSetWindowTitle( title );
 }
@@ -121,8 +122,6 @@ int rtrt_main()
 
     // create rendering image
     rt::Image img( FLAGS_width, FLAGS_height );
-    // file the mage with debug data
-    img._fill_gradiant();
 
     // create main loop
     while( running )
@@ -133,10 +132,11 @@ int rtrt_main()
         /// clear the screen
         glClear( GL_COLOR_BUFFER_BIT );
 
-        // do work here!
+        // do work here, replace this with the ray tracer
+        img._fill_random();
 
-        // render image to window
-        img._render();
+        // render image to frame buffer
+        img._render( );
 
         /// update screen, poll IO
         glfwSwapBuffers();
