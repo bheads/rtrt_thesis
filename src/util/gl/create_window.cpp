@@ -14,7 +14,7 @@ bool create_window()
     // create the main window, this needs to be updated with command line options
     LOG(INFO) << "Creating a " << ( FLAGS_fullscreen ? "fullscreen" : "window"  ) <<
         " app at " << FLAGS_width << "x" << FLAGS_height;
-    CHECK( glfwOpenWindow( FLAGS_width, FLAGS_height, 8, 8, 8, 0, 0, 0, 
+    CHECK( glfwOpenWindow( FLAGS_width, FLAGS_height, 8, 8, 8, 8, 0, 0, 
                 ( FLAGS_fullscreen ? GLFW_FULLSCREEN : GLFW_WINDOW )) == GL_TRUE )
         << "Failed to create a window";
     glfwSetWindowTitle( __TITLE__ );
