@@ -137,7 +137,7 @@ int rtrt_main()
         glClear( GL_COLOR_BUFFER_BIT );
 
         // do work here, replace this with the ray tracer
-        //img._fill_random();
+        img._fill_random();
         ray._render( img.Data(), FLAGS_width, FLAGS_height );
 
         // render image to frame buffer

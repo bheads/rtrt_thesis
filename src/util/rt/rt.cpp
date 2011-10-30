@@ -21,9 +21,9 @@ namespace rt
     void RayTracer::_render( color *img, size_t width, size_t height )
     {
 #pragma omp parallel for
-        for( size_t y = 0; y < height; ++y )
+        for( ssize_t y = 0; y < height; ++y )
         {
-            for( size_t x = 0; x < width; ++ x )
+            for( ssize_t x = 0; x < width; ++ x )
             {
                 // get the current color
                 color &c = img[ ( y * width ) + x  ];

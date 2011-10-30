@@ -76,9 +76,6 @@ namespace rt
     {
         // draw the image pixels, slow....
         glDrawPixels( width, height, GL_RGBA, GL_FLOAT, data );
-
-
-
     }
 }
 
