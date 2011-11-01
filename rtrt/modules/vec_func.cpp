@@ -542,7 +542,7 @@ vec4 & operator/=( vec4 &lhs, float rhs )
  */
 float dot( const vec4 &a, const vec4 &b )
 {
-    register float ret = 0.0f;  // Used to store the return value.
+    float ret = 0.0f;  // Used to store the return value.
     asm(    "movaps %1, %%xmm0 \n\t" //vec4 is aligned, load the two vectors
             "movaps %2, %%xmm1 \n\t"
             "mulps %%xmm1, %%xmm0 \n\t" //x*x, y*y, z*z, w*w
