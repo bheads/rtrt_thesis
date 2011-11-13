@@ -1,4 +1,6 @@
 
+ CONFIG -= app_bundle
+
 QMAKE_CXXFLAGS += -sse -sse2 -fopenmp
 
 LIBS += -lpthread -lgflags -lglog -framework Cocoa -framework AGL -framework OpenGL -lglfw -lgomp
@@ -17,7 +19,9 @@ HEADERS += \
     modules/window.h \
     modules/image.h \
     modules/vec4.h \
-    modules/vec_func.h
+    modules/vec_func.h \
+    modules/color.h
+
 
 
 

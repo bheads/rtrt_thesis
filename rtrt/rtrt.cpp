@@ -19,7 +19,7 @@
 // Projects includes
 #include <cmdflags.h>
 #include <modules/window.h>
-#include <modules/image.h>
+//#include <modules/image.h>
 
 void render(Image *back_p);
 
@@ -62,10 +62,10 @@ int main(int argc, char *argv[])
                 win.update(); // swap the back buffer with the front buffer
             }
         }
-
     }
 
     LOG(INFO) << "shutting down";
+    LOG(INFO) << "Average frame rate was " << win.average_framerate();
     front.destroy_image();
     back.destroy_image();
     win.destroy_window();
@@ -78,9 +78,11 @@ void render(Image *back_p)
 #pragma omp parallel for
     for(ssize_t y = 0; y < back_p->height(); ++y)
     {
+        float red = (float)omp_get_thread_num()/(float)omp_get_num_threads();
+        float blue = 0;
         for(ssize_t x = 0; x < back_p->width(); ++x)
         {
-            back_p->set(x,y,color((float)omp_get_thread_num()/(float)omp_get_num_threads(),0,0));
+            back_p->set(x,y,color(red, blue, 0));
         }
     }
 }

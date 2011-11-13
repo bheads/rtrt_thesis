@@ -1,5 +1,7 @@
 #include "image.h"
 
+#include <modules/color.h>
+
 Image::Image()
     : _width(0), _height(0), _data(NULL), ready(false)
 {
@@ -56,9 +58,10 @@ void Image::fill_with_color(boost::uint8_t r, boost::uint8_t g, boost::uint8_t b
 void Image::fill_with_color(boost::uint32_t c)
 {
     if(!ready) return;
-    for(size_t y = 0; y < _height; ++y)
+#pragma omp parallel for
+    for(ssize_t y = 0; y < _height; ++y)
     {
-        for(size_t x = 0; x < _width; ++x)
+        for(ssize_t x = 0; x < _width; ++x)
         {
             _data[at(x,y)].color = c;
         }
@@ -76,14 +79,4 @@ void Image::fill_with_random()
             _data[at(x,y)].color = rand();
         }
     }
-}
-
-void Image::set(size_t x, size_t y, color c)
-{
-    if(!ready) return;
-    clamp(c);
-    _data[at(x,y)].r = c.x*255;
-    _data[at(x,y)].g = c.y*255;
-    _data[at(x,y)].b = c.z*255;
-    _data[at(x,y)].a = 0;
 }

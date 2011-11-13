@@ -47,12 +47,14 @@ public:
     inline uint32_t width() { return(_width); }
     inline uint32_t height(){ return(_height); }
 
+    inline uint32_t average_framerate() { return(frameaverage); }
+
 private:
     uint32_t _width, _height;
     bool fullscreen, running;
     std::string title;
 
-    int32_t framerate, framecount;
+    int32_t framerate, framecount, frameaverage;
     double framedelta, frameupdatetime, frameprev;
 
 

@@ -38,7 +38,36 @@ public:
     inline iColor *data() { return(_data); }
     inline size_t at(size_t x, size_t y) { return((y * _width) + x); }
 
-    void set(size_t , size_t, color);
+    //void set(size_t , size_t, color);
+
+    inline void set(size_t x, size_t y, color c)
+    {
+        float zero = 0.0f, one = 1.0f, conv = 255.0f;
+
+        if(!ready) return;
+        asm(    "movaps %1, %%xmm0 \n\t"
+                "movss %2, %%xmm1 \n\t"
+                "shufps $0x00, %%xmm1, %%xmm1 \n\t"
+                "minps %%xmm1, %%xmm0 \n\t"   // clamp min to 0.
+                "movss %3, %%xmm1 \n\t"
+                "shufps $0x00, %%xmm1, %%xmm1 \n\t"
+                "maxps %%xmm1, %%xmm0 \n\t"   // clamp max to 1.0
+                "movss %4, %%xmm1 \n\t"
+                "shufps $0x00, %%xmm1, %%xmm1 \n\t"
+                "mulps %%xmm1, %%xmm0\n\t"   // multiply by 255
+                "movaps %%xmm0, %0 \n\t"
+                : "=m"(c)
+                : "m"(c), "m"(one), "m"(zero), "m"(conv)
+                : "xmm0", "xmm1"
+           );
+
+        _data[at(x,y)].r = (uint8_t)c.x;
+        _data[at(x,y)].g = (uint8_t)c.y;
+        _data[at(x,y)].b = (uint8_t)c.z;
+        //_data[at(x,y)].a = 0;
+    }
+
+
 private:
     boost::uint32_t _width, _height;
     iColor *_data;

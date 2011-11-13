@@ -1,7 +1,7 @@
 #include "window.h"
 
 Window::Window()
-    : running(false), framerate(0), framecount(0), framedelta(0.0), frameupdatetime(glfwGetTime() + 1.0), frameprev(glfwGetTime())
+    : running(false), framerate(0), framecount(0), frameaverage(0), framedelta(0.0), frameupdatetime(glfwGetTime() + 1.0), frameprev(glfwGetTime())
 {
     int major, minor, revision;
     CHECK(glfwInit() == GL_TRUE) << "Failed to initilize GLFW";
@@ -12,7 +12,7 @@ Window::Window()
 }
 
 Window::Window(uint32_t width, uint32_t height, bool fullscreen, std::string title, int32_t interval)
-    : running(false), framerate(0), framecount(0), framedelta(0.0), frameupdatetime(glfwGetTime() + 1.0), frameprev(glfwGetTime())
+    : running(false), framerate(0), framecount(0), frameaverage(0), framedelta(0.0), frameupdatetime(glfwGetTime() + 1.0), frameprev(glfwGetTime())
 {
     int major, minor, revision;
     glfwGetVersion(&major, &minor, &revision);
@@ -160,6 +160,9 @@ void Window::update_frame_rate()
         framerate = framecount;
         framecount = 0;
         frameupdatetime = frametime + 1.0f;
+        if(frameaverage <= 0) frameaverage = framerate;
+        frameaverage += framerate;
+        frameaverage /= 2;
     }
 
     framedelta = frametime - frameprev;
