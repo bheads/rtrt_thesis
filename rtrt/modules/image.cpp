@@ -43,9 +43,10 @@ void Image::destroy_image()
 void Image::fill_with_color(boost::uint8_t r, boost::uint8_t g, boost::uint8_t b)
 {
     if(!ready) return;
-    for(size_t y = 0; y < _height; ++y)
+#pragma omp parallel for
+    for(ssize_t y = 0; y < _height; ++y)
     {
-        for(size_t x = 0; x < _width; ++x)
+        for(ssize_t x = 0; x < _width; ++x)
         {
             _data[at(x,y)].r = r;
             _data[at(x,y)].g = g;
@@ -72,11 +73,13 @@ void Image::fill_with_color(boost::uint32_t c)
 void Image::fill_with_random()
 {
     if(!ready) return;
-    for(size_t y = 0; y < _height; ++y)
+#pragma omp parallel for
+    for(ssize_t y = 0; y < _height; ++y)
     {
-        for(size_t x = 0; x < _width; ++x)
+        int random_color = rand();
+        for(ssize_t x = 0; x < _width; ++x)
         {
-            _data[at(x,y)].color = rand();
+            _data[at(x,y)].color = random_color;
         }
     }
 }

@@ -42,7 +42,7 @@ public:
 
     inline void set(size_t x, size_t y, color c)
     {
-        float zero = 0.0f, one = 1.0f, conv = 255.0f;
+        static float zero = 0.0f, one = 1.0f, conv = 255.0f;
 
         if(!ready) return;
         asm(    "movaps %1, %%xmm0 \n\t"
@@ -60,11 +60,10 @@ public:
                 : "m"(c), "m"(one), "m"(zero), "m"(conv)
                 : "xmm0", "xmm1"
            );
-
-        _data[at(x,y)].r = (uint8_t)c.x;
-        _data[at(x,y)].g = (uint8_t)c.y;
-        _data[at(x,y)].b = (uint8_t)c.z;
-        //_data[at(x,y)].a = 0;
+        iColor *p = &(_data[at(x,y)]);
+        p->r = (uint8_t)c.x;
+        p->g = (uint8_t)c.y;
+        p->b = (uint8_t)c.z;
     }
 
 

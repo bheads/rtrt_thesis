@@ -75,14 +75,14 @@ int main(int argc, char *argv[])
 
 void render(Image *back_p)
 {
+    //back_p->fill_with_random();
+    //return;
 #pragma omp parallel for
     for(ssize_t y = 0; y < back_p->height(); ++y)
     {
-        float red = (float)omp_get_thread_num()/(float)omp_get_num_threads();
-        float blue = 0;
         for(ssize_t x = 0; x < back_p->width(); ++x)
         {
-            back_p->set(x,y,color(red, blue, 0));
+            back_p->set(x,y,color(0, 0, 1));
         }
     }
 }
