@@ -39,7 +39,9 @@ public:
     inline bool is_running() { return(running); }
     inline double delta() { return(framedelta); }
 
-    inline void clear() { update_frame_rate(); glClear(GL_COLOR_BUFFER_BIT); }
+    void update_frame_rate();
+
+    inline void clear() { glClear(GL_COLOR_BUFFER_BIT); }
     inline void update() { glfwSwapBuffers(); }
 
     inline uint32_t width() { return(_width); }
@@ -63,7 +65,7 @@ private:
 
 
     void set_handlers();
-    void update_frame_rate();
+
 };
 
 #endif // WINDOW_H

@@ -16,7 +16,7 @@ DEFINE_int32( width, 640, "Set the screen width" );
 DEFINE_int32( height, 480, "Set the screen height" );
 DEFINE_bool( fullscreen, false, "Set the screen to fullscreen" );
 DEFINE_bool( fps, true, "Show the frame rate in window mode" );
-DEFINE_int32( interval, 0, "Screen refresh interval" );
+DEFINE_int32( interval, 30, "Screen refresh interval" );
 
 /**
   parse_commandline parses the main functions command line options

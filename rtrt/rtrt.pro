@@ -1,7 +1,7 @@
 
 QMAKE_CXXFLAGS += -sse -sse2 -fopenmp
 
-LIBS += -lgomp -lgflags -lglog -framework Cocoa -framework AGL -framework OpenGL -lglfw
+LIBS += -lpthread -lgflags -lglog -framework Cocoa -framework AGL -framework OpenGL -lglfw -lgomp
 
 QT -= core gui
 
