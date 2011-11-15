@@ -12,7 +12,12 @@ SOURCES += \
     modules/cmdflags.cpp \
     modules/window.cpp \
     modules/image.cpp \
-    modules/vec_func.cpp
+    modules/vec_func.cpp \
+    raytracer.cpp \
+    modules/basiccamera.cpp \
+    world.cpp \
+    objects/sphere.cpp \
+    objects/object.cpp
 
 HEADERS += \
     cmdflags.h \
@@ -20,7 +25,22 @@ HEADERS += \
     modules/image.h \
     modules/vec4.h \
     modules/vec_func.h \
-    modules/color.h
+    modules/color.h \
+    raytracer.h \
+    modules/basiccamera.h \
+    world.h \
+    objects/sphere.h \
+    objects/object.h
+
+
+
+
+
+
+
+
+
+
 
 
 

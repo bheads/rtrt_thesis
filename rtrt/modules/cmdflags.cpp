@@ -12,8 +12,8 @@
 #include <cmdflags.h>
 
 // command line options
-DEFINE_int32( width, 640, "Set the screen width" );
-DEFINE_int32( height, 480, "Set the screen height" );
+DEFINE_int32( width, 512, "Set the screen width" );
+DEFINE_int32( height, 512, "Set the screen height" );
 DEFINE_bool( fullscreen, false, "Set the screen to fullscreen" );
 DEFINE_bool( fps, true, "Show the frame rate in window mode" );
 DEFINE_int32( interval, 30, "Screen refresh interval" );

@@ -20,8 +20,8 @@
 #include <cmdflags.h>
 #include <modules/window.h>
 //#include <modules/image.h>
-
-void render(Image *back_p);
+#include <raytracer.h>
+#include <world.h>
 
 int main(int argc, char *argv[])
 {
@@ -36,6 +36,15 @@ int main(int argc, char *argv[])
     Image front(win.width(), win.height()), back(win.width(), win.height()); // create the images
     Image *front_p = &front, *back_p = &back;
 
+    RayTracer rt(win.width(), win.height());
+    World world;
+
+    world.add_sphere(0.5, 0.5, 600, 100, color(0,1,0));
+    world.add_sphere(0.5, 0.5, -600, 100, color(0,0,1));
+    world.add_sphere(-1, 3, -10, 3, color(0,0,1));
+    world.add_sphere(0, 0, -20000, 5, color(1,0,0));
+
+
 #pragma omp parallel
     {
 
@@ -45,7 +54,7 @@ int main(int argc, char *argv[])
             while(win.is_running())
             {
                 win.update_frame_rate();
-                render(back_p);
+                rt.render(back_p, world);
                 // swap buffers
                 std::swap(front_p, back_p);
             }
@@ -73,16 +82,4 @@ int main(int argc, char *argv[])
     return(0);
 }
 
-void render(Image *back_p)
-{
-    //back_p->fill_with_random();
-    //return;
-#pragma omp parallel for
-    for(ssize_t y = 0; y < back_p->height(); ++y)
-    {
-        for(ssize_t x = 0; x < back_p->width(); ++x)
-        {
-            back_p->set(x,y,color(0, 0, 1));
-        }
-    }
-}
+
