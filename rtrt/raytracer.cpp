@@ -13,7 +13,7 @@ void RayTracer::render(Image *img, World &world)
     {
         for(ssize_t x = 0; x < img->width(); ++x)
         {
-            img->set(x, y, cast(camera.get_ray(x, y), color(0, 0, 0), 0, world));
+            img->set(x, y, cast(camera.get_ray(x, y), color(), 0, world));
         }
     }
 }
@@ -22,8 +22,6 @@ void RayTracer::render(Image *img, World &world)
 color RayTracer::cast(Ray ray, color col, uint32_t depth, World &world)
 {
     if(++depth > MAX_DEPTH) return(col);
-
-    Collision hit = world.cast(ray);
-
-    return(col + hit.col);
+    //Collision hit = world.cast(ray);
+    return(col);
 }

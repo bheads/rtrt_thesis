@@ -17,7 +17,8 @@ SOURCES += \
     modules/basiccamera.cpp \
     world.cpp \
     objects/sphere.cpp \
-    objects/object.cpp
+    objects/object.cpp \
+    modules/mat4.cpp
 
 HEADERS += \
     cmdflags.h \
@@ -30,7 +31,10 @@ HEADERS += \
     modules/basiccamera.h \
     world.h \
     objects/sphere.h \
-    objects/object.h
+    objects/object.h \
+    modules/mat4.h
+
+
 
 
 
