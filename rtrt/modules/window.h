@@ -49,6 +49,11 @@ public:
 
     inline uint32_t average_framerate() { return(frameaverage); }
 
+    inline float deltaX() { return(_deltaX);}
+    inline float deltaY() { return(_deltaY);}
+    inline float deltaZ() { return(_deltaZ);}
+    inline void clearXY() { _deltaX = _deltaY = _deltaZ = 0.0f; }
+
 private:
     uint32_t _width, _height;
     bool fullscreen, running;
@@ -56,6 +61,8 @@ private:
 
     int32_t framerate, framecount, frameaverage;
     double framedelta, frameupdatetime, frameprev;
+
+    float _deltaX, _deltaY, _deltaZ;
 
 
     static std::vector<Window*> &windows() { static std::vector<Window*> s_vec; return(s_vec); }

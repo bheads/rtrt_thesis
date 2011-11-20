@@ -25,19 +25,22 @@ Collision World::cast(Ray &ray)
     float mindist = 1000000.0f, dist = 0.0f;
     color col;
     bool hit = false;
+    std::vector<Sphere>::iterator it;
+    vec4 N, pi;
 
-//#pragma omp parrallel for shared(dist, mindist, hit, col)
-    for(size_t i = 0; i < spheres.size(); ++i)
+    for(it = spheres.begin(); it != spheres.end(); ++it)
     {
-        if(spheres[i].hit(ray, dist))
+        if(it->hit(ray, dist))
         {
             if(0.0f < dist && dist < mindist)
             {
                 hit = true;
                 mindist = dist;
-                col = spheres[i].get_color();
+                col = it->get_color();
+                pi = at(ray, dist);
+                N = it->surface_normal(pi);
             }
         }
     }
-    return(Collision(hit, col));
+    return(Collision(hit, col, mindist, pi, N));
 }

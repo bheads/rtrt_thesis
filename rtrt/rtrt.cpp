@@ -12,6 +12,8 @@
 
 // C includes
 #include <omp.h>
+#include <cstdlib>
+#include <ctime>
 
 // C++ includes
 #include <boost/cstdint.hpp>
@@ -23,8 +25,14 @@
 #include <raytracer.h>
 #include <world.h>
 
+float randf()
+{
+    return((float)rand()/RAND_MAX);
+}
+
 int main(int argc, char *argv[])
 {
+    srand(time(NULL));
     omp_set_nested(1);
     omp_set_num_threads(8);
 
@@ -39,11 +47,11 @@ int main(int argc, char *argv[])
     RayTracer rt(win.width(), win.height());
     World world;
 
-    world.add_sphere(0.5, 0.5, 600, 100, color(0,1,0));
-    world.add_sphere(0.5, 0.5, -600, 100, color(0,0,1));
-    world.add_sphere(-1, 3, -10, 3, color(0,0,1));
-    world.add_sphere(0, 0, -20000, 5, color(1,0,0));
-
+    // create a random world
+    for(size_t items = 0; items < 25; ++items)
+    {
+        world.add_sphere((randf() * 30) - 15 , (randf() * 30) - 15, (randf() * -70) + -15 , (randf() * 10) + 2, color(randf(),randf(),randf()));
+    }
 
 #pragma omp parallel
     {
@@ -53,7 +61,15 @@ int main(int argc, char *argv[])
         {
             while(win.is_running())
             {
+                // update frame
                 win.update_frame_rate();
+                // input
+                rt.moveX(win.deltaX());
+                rt.moveY(win.deltaY());
+                rt.moveZ(win.deltaZ());
+                win.clearXY();
+
+                // render the new back buffer
                 rt.render(back_p, world);
                 // swap buffers
                 std::swap(front_p, back_p);

@@ -56,6 +56,8 @@ vec4 &cross( vec4 &, const vec4 &, const vec4 & );///< compute cross into input 
 //color &clamp( color &, const float = 0.0, const float = 1.0 ); /// < Clamp a color to a given value
 const color clamped( const color &, const float = 0.0, const float = 1.0 ); /// < Return a clamped copy
 
+// Ray ops
+const vec4 at(const Ray &r, float dist);
 
 #endif
 

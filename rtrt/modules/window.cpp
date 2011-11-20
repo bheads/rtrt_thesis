@@ -1,7 +1,8 @@
 #include "window.h"
 
 Window::Window()
-    : running(false), framerate(0), framecount(0), frameaverage(0), framedelta(0.0), frameupdatetime(glfwGetTime() + 1.0), frameprev(glfwGetTime())
+    : running(false), framerate(0), framecount(0), frameaverage(0), framedelta(0.0), frameupdatetime(glfwGetTime() + 1.0), frameprev(glfwGetTime()),
+      _deltaX(0.0f), _deltaY(0.0f), _deltaZ(0.0f)
 {
     int major, minor, revision;
     CHECK(glfwInit() == GL_TRUE) << "Failed to initilize GLFW";
@@ -12,7 +13,8 @@ Window::Window()
 }
 
 Window::Window(uint32_t width, uint32_t height, bool fullscreen, std::string title, int32_t interval)
-    : running(false), framerate(0), framecount(0), frameaverage(0), framedelta(0.0), frameupdatetime(glfwGetTime() + 1.0), frameprev(glfwGetTime())
+    : running(false), framerate(0), framecount(0), frameaverage(0), framedelta(0.0), frameupdatetime(glfwGetTime() + 1.0), frameprev(glfwGetTime()),
+      _deltaX(0.0f), _deltaY(0.0f), _deltaZ(0.0f)
 {
     int major, minor, revision;
     glfwGetVersion(&major, &minor, &revision);
@@ -177,6 +179,24 @@ void Window::window_keypress(int key, int action)
         {
             LOG(INFO) << "Got exit key";
             running = false;
+        }else if(key == GLFW_KEY_LEFT)
+        {
+            _deltaX -= 1.0f;
+        }else if(key == GLFW_KEY_RIGHT)
+        {
+            _deltaX += 1.0f;
+        }else if(key == GLFW_KEY_UP)
+        {
+            _deltaY += 1.0f;
+        }else if(key == GLFW_KEY_DOWN)
+        {
+            _deltaY -= 1.0f;
+        }else if(key == '=')
+        {
+            _deltaZ -= 1.0f;
+        }else if(key == '-')
+        {
+            _deltaZ += 1.0f;
         }
     }
     else

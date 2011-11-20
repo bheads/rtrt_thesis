@@ -21,6 +21,10 @@ public:
     void render(Image *, World &);
     color cast(Ray, color, uint32_t, World &);
 
+    inline void moveX(float dist) { camera.moveX(dist); }
+    inline void moveY(float dist) { camera.moveY(dist); }
+    inline void moveZ(float dist) { camera.moveZ(dist); }
+
 private:
     BasicCamera camera;
 

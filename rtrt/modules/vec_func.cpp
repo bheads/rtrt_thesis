@@ -650,3 +650,8 @@ const color clamped( const color &c, const float min, const float max )
     return( ret );
 }
 
+
+const vec4 at(const Ray &r, float dist)
+{
+    return( r.o + (dist * r.d));
+}

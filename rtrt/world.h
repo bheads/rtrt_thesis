@@ -17,13 +17,16 @@
 
 struct Collision
 {
-    Collision(bool _hit = false, color _c = color(0,0,0))
-        : col(_c), hit(_hit)
+    Collision(bool _hit = false, color _c = color(0,0,0), float _d = 0.0f, vec4 pi = vec4(), vec4 N = vec4())
+        : col(_c), hit(_hit), dist(_d), at(pi, N)
     {
     }
 
     color col;
     bool hit;
+    float dist;
+    Ray at;
+
 };
 
 class World

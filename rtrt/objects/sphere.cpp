@@ -1,7 +1,7 @@
 #include "sphere.h"
 
 Sphere::Sphere(float x, float y, float z, float _r, color c)
-    : pos(x, y, z), r(_r), dia(r*r), col(c)
+    : pos(x, y, z), r(_r), dia(r+r), col(c)
 {
 }
 
@@ -24,4 +24,8 @@ bool Sphere::hit(Ray &ray, float &dist)
     return true;
 }
 
-
+const vec4 Sphere::surface_normal(const vec4 &at)
+{
+    vec4 N = (at - pos) * r;
+    return(N.normalize());
+}

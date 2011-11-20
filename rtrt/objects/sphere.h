@@ -20,6 +20,7 @@ public:
     bool hit(Ray &ray, float &dist);
 
     const color &get_color() { return(col); }
+    const vec4 surface_normal(const vec4 &at);
 
 private:
     vec4 pos;
