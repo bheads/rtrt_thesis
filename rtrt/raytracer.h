@@ -1,34 +1,28 @@
 #ifndef RAYTRACER_H
 #define RAYTRACER_H
 
-#include <cmath>
-
-#include <omp.h>
-
-#include <modules/vec4.h>
-#include <modules/vec_func.h>
-#include <modules/image.h>
+// Project
+#include <cmdflags.h>
 #include <modules/basiccamera.h>
-#include <world.h>
+#include <modules/image.h>
+#include <modules/ray.h>
 
-#define MAX_DEPTH 4
+
 
 class RayTracer
 {
 public:
-    RayTracer(uint32_t width, uint32_t height);
+    RayTracer();
 
-    void render(Image *, World &);
-    color cast(Ray, color, uint32_t, World &);
 
-    inline void moveX(float dist) { camera.moveX(dist); }
-    inline void moveY(float dist) { camera.moveY(dist); }
-    inline void moveZ(float dist) { camera.moveZ(dist); }
+
+    void render(Image *_image);
 
 private:
-    BasicCamera camera;
+    BasicCamera _camera;
 
 
+    color &cast(Ray &ray, color &c);
 };
 
 #endif // RAYTRACER_H

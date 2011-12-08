@@ -1,35 +1,44 @@
 #include "basiccamera.h"
 
 BasicCamera::BasicCamera(uint32_t width, uint32_t height)
-    : tan_fovx(tan(M_PI/2)), tan_fovy(tan((height/width)*(M_PI/2))), _width(width), _height(height), o(), look(0,0,-1),
-      aspect((float)width/height), aspect_2(aspect/2), width_2(width/2), height_2(height/2)
+    :_width(width),
+      _height(height),
+      _C(),
+      _p(),
+      _u(),
+      _v(),
+      _f(1.0f),
+      _a(_f),
+      _Sx(1.0f),
+      _Sy(1.0f),
+      _aspect((float)_width/_height),
+      _aspect_2(_aspect/2),
+      _width_2(_width/2),
+      _height_2(_height/2)
 {
+    _C.zeros(); // start at 0,0,0
+    _p.zeros(); // look down +z
+    _p[2] = 1.0f;
+    _u.zeros(); // left direction
+    _u[0] = -1.0f;
+    _v.zeros(); // up
+    _v[1] = 1.0f;
 }
 
 
-Ray BasicCamera::get_ray(float u, float v)
+Ray &BasicCamera::get_ray(Ray &ray, float u, float v)
 {
+    u = ((u - _width_2) / _width_2) * _aspect_2;
+    v = ((v - _height_2) / _height_2) * 0.5;
 
-    u = ((u - width_2) / width_2) * aspect_2;
-    v = ((v - height_2) / height_2) * 0.5;
-    vec4 d(u, v, -1.01);
-    return(Ray(o, d.normalize()));
+
+    ray._o = _C;
+    ray._d[0] = u;
+    ray._d[1] = v;
+    ray._d[2] = -1.01;
+
+
+    return(ray);
 }
 
-
-void BasicCamera::moveX(float dist)
-{
-    o.x += dist;
-}
-
-
-void BasicCamera::moveY(float dist)
-{
-    o.y += dist;
-}
-
-void BasicCamera::moveZ(float dist)
-{
-    o.z += dist;
-}
 

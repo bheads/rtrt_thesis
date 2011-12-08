@@ -1,46 +1,43 @@
 #include "raytracer.h"
 
-RayTracer::RayTracer(uint32_t width, uint32_t height)
-    : camera(width, height)
+#include <omp.h>
+
+RayTracer::RayTracer()
+    : _camera(FLAGS_width, FLAGS_height)
 {
 }
 
 
-void RayTracer::render(Image *img, World &world)
+
+void RayTracer::render(Image *_image)
 {
-    #pragma omp parallel for
-    for(ssize_t y = 0; y < img->height(); ++y)
+    Ray ray;        // current ray
+    color light;
+    light.zeros();  // base light
+
+#pragma omp parallel for private(light, ray) shared(_image)
+    for(int32_t y = 0; y < _image->height(); ++y)
     {
-        for(ssize_t x = 0; x < img->width(); ++x)
+        for(int32_t x = 0; x < _image->width(); ++x)
         {
-            img->set(x, y, cast(camera.get_ray(x, y), color(), 0, world));
+            _image->set(x, y, cast(_camera.get_ray(ray, x, y), light));
         }
     }
 }
 
 
-color RayTracer::cast(Ray ray, color col, uint32_t depth, World &world)
+color &RayTracer::cast(Ray &ray, color &c)
 {
-    if(++depth > MAX_DEPTH) return(col);
-    Collision hit = world.cast(ray);
-    if(hit.hit)
-    {
-        vec4 light_at(0, 50, 0);
-        vec4 L = light_at - hit.at.o;
-        L.normalize();
+    static vec pos("0 0 -100");
+    c.zeros();
 
-        float angle = dot(hit.at.d, L);
-        if(angle > 0.0f)
-        {
-            col += 0.9 * angle *  hit.col;
-        }
-        vec4 R = L - 2.0f * hit.at.d * dot(L, hit.at.d);
-        angle = dot(ray.d, R);
-        if(angle > 0.0f)
-        {
-            col += powf(angle, 20.0f) * 0.4f * color(1,1,1);
-        }
-    }
+    vec p = ray._o - pos;
+    float b = -dot(p, ray._d);
+    float det = b*b - dot(p, p) + 1;
+    if(det < 0.0f) return(c);
+    det = sqrt(det);
+    if(b + det < 0) return(c);
 
-    return(col);
+    c += 1;
+    return(c);
 }
