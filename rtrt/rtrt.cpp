@@ -23,6 +23,7 @@
 #include <modules/window.h>
 
 #include <raytracer.h>
+#include <modules/world.h>
 
 int main(int argc, char *argv[])
 {
@@ -38,7 +39,9 @@ int main(int argc, char *argv[])
     Image front(win.width(), win.height()), back(win.width(), win.height()); // create the images
     Image *front_p = &front, *back_p = &back;
 
-    RayTracer rt;
+    World world;
+    world.fill(10);
+    RayTracer rt(world);
 
 
 #pragma omp parallel

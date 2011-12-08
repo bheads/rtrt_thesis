@@ -14,7 +14,10 @@ SOURCES += \
     modules/image.cpp \
     modules/basiccamera.cpp \
     modules/ray.cpp \
-    raytracer.cpp
+    raytracer.cpp \
+    modules/world.cpp \
+    modules/objects/object.cpp \
+    modules/objects/sphere.cpp
 
 HEADERS += \
     cmdflags.h \
@@ -23,7 +26,16 @@ HEADERS += \
     modules/color.h \
     modules/basiccamera.h \
     modules/ray.h \
-    raytracer.h
+    raytracer.h \
+    modules/world.h \
+    modules/objects/object.h \
+    modules/objects/sphere.h
+
+
+
+
+
+
 
 
 
