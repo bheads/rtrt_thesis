@@ -2,6 +2,8 @@
 #define SPHERE_H
 
 #include <ctime>
+#include <cmath>
+
 #include <boost/random/uniform_real.hpp>
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/variate_generator.hpp>
@@ -17,6 +19,7 @@ class Sphere : public Object
 public:
     Sphere();
     Sphere(const vec &pos, float r, const color &c);
+    ~Sphere();
 
     virtual float collision(const Ray &ray, color &c);
 

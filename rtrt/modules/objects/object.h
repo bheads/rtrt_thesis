@@ -12,6 +12,7 @@ class Object
 {
 public:
     Object();
+    virtual ~Object() {}
 
 
     virtual float collision(const Ray &ray, color &c) = 0;

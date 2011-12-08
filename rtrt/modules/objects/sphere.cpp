@@ -14,12 +14,12 @@ Sphere::Sphere()
     _c[0] = gen();
     _c[1] = gen();
     _c[2] = gen();
-    _r = (gen() * 10.0f) + 1.0f;
+    _r = 1; //(gen() * 10.0f) + 1.0f;
     _dia = _r + _r;
 
     _pos[0] = (gen() * 50.0f) - 25.0f;
     _pos[1] = (gen() * 50.0f) - 25.0f;
-    _pos[2] = (gen() * -1000.0f) - 250000.0f;
+    _pos[2] = (gen() * -1000.0f) - 25000.0f;
 }
 
 
@@ -32,13 +32,18 @@ Sphere::Sphere(const vec &pos, float r, const color &c)
 {
 }
 
+Sphere::~Sphere()
+{
+
+}
+
 
 
 float Sphere::collision(const Ray &ray, color &c)
 {
     vec p = ray._o - _pos;
-    float b = -dot(p, ray._d);
-    float det = b*b - dot(p, p) + _dia;
+    float b = -arma::dot(p, ray._d);
+    float det = b*b - arma::dot(p, p) + _dia;
     if(det < 0.0f) return(-1);
     det = sqrt(det);
     if(b + det < 0) return(-1);
