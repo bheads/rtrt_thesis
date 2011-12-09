@@ -48,6 +48,11 @@ public:
         p->b = (uint8_t)c[2];
     }
 
+    inline void clear(size_t x, size_t y)
+    {
+        _data[at(x,y)].color = 0;
+    }
+
 
 private:
     boost::int32_t _width, _height;

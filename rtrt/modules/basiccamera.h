@@ -4,13 +4,10 @@
 #include <cmath>
 
 #include <boost/cstdint.hpp>
+
 #include <glog/logging.h>
 
-#include <armadillo>
-
 #include <modules/ray.h>
-
-typedef arma::fmat::fixed<3,3> mat;
 
 class BasicCamera
 {

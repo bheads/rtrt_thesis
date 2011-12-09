@@ -17,7 +17,9 @@ SOURCES += \
     raytracer.cpp \
     modules/world.cpp \
     modules/objects/object.cpp \
-    modules/objects/sphere.cpp
+    modules/objects/sphere.cpp \
+    modules/random.cpp \
+    modules/objects/light.cpp
 
 HEADERS += \
     cmdflags.h \
@@ -29,7 +31,13 @@ HEADERS += \
     raytracer.h \
     modules/world.h \
     modules/objects/object.h \
-    modules/objects/sphere.h
+    modules/objects/sphere.h \
+    modules/random.h \
+    modules/objects/light.h
+
+
+
+
 
 
 

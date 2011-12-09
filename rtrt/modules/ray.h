@@ -1,9 +1,13 @@
 #ifndef RAY_H
 #define RAY_H
 
+/*
 #include <armadillo>
-
 typedef arma::fvec::fixed<3> vec;
+*/
+
+#include <eigen3/Eigen/Dense>
+typedef Eigen::Vector3f vec;
 
 class Ray
 {

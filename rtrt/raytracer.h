@@ -22,7 +22,7 @@ private:
     BasicCamera _camera;
     World &_world;
 
-    color &cast(Ray &ray, color &c, Collision &collision);
+    bool cast(Ray &ray, color &c, Collision &collision);
 };
 
 #endif // RAYTRACER_H

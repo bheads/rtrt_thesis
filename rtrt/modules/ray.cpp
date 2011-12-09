@@ -1,18 +1,15 @@
 #include "ray.h"
 
 Ray::Ray()
-    : _o(),
-      _d()
+    : _o(0, 0, 0),
+      _d(0, 0, 0)
 {
-    _o.zeros();
-    _d.zeros();
 }
 
 Ray::Ray(const vec &o, const vec &d)
     : _o(o),
       _d(d)
 {
-
 }
 
 Ray::Ray(const Ray &r)
