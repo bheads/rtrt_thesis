@@ -4,30 +4,22 @@
 #include <cmath>
 
 #include <boost/cstdint.hpp>
+
 #include <glog/logging.h>
 
-#include <modules/vec4.h>
-#include <modules/vec_func.h>
+#include <modules/ray.h>
 
 class BasicCamera
 {
 public:
     BasicCamera(uint32_t, uint32_t);
 
-    Ray get_ray(float, float);
-
-    void moveX(float dist);
-    void moveY(float dist);
-    void moveZ(float dist);
-
-
+    Ray &get_ray(Ray &ray, float u, float v);
 private:
-    float tan_fovx, tan_fovy;
     float _width, _height;
-
-    vec4 o, look;
-
-    float aspect, aspect_2, width_2, height_2;
+    vec _C, _p, _u, _v;
+    float _f, _a, _Sx, _Sy;
+    float _aspect, _aspect_2, _width_2, _height_2;
 };
 
 #endif // BASICCAMERA_H

@@ -5,10 +5,12 @@
 #include <boost/cstdint.hpp>
 #include <cstdlib>
 
+#include <armadillo>
+
 // Project includes
 #include <cmdflags.h>
-#include <modules/vec4.h>
-#include <modules/vec_func.h>
+#include <modules/color.h>
+
 
 union iColor
 {
@@ -32,43 +34,28 @@ public:
     void fill_with_color(boost::uint32_t);
     void fill_with_random();
 
-
-    inline boost::uint32_t width() { return(_width); }
-    inline boost::uint32_t height() { return(_height); }
+    inline boost::int32_t width() { return(_width); }
+    inline boost::int32_t height() { return(_height); }
     inline iColor *data() { return(_data); }
     inline size_t at(size_t x, size_t y) { return((y * _width) + x); }
 
-    //void set(size_t , size_t, color);
-
     inline void set(size_t x, size_t y, color c)
     {
-        static float zero = 0.0f, one = 1.0f, conv = 255.0f;
+        c  *= 255;
+        register iColor *p = &(_data[at(x,y)]);
+        p->r = (uint8_t)c[0];
+        p->g = (uint8_t)c[1];
+        p->b = (uint8_t)c[2];
+    }
 
-        if(!ready) return;
-        asm(    "movaps %1, %%xmm0 \n\t"
-                "movss %2, %%xmm1 \n\t"
-                "shufps $0x00, %%xmm1, %%xmm1 \n\t"
-                "minps %%xmm1, %%xmm0 \n\t"   // clamp min to 0.
-                "movss %3, %%xmm1 \n\t"
-                "shufps $0x00, %%xmm1, %%xmm1 \n\t"
-                "maxps %%xmm1, %%xmm0 \n\t"   // clamp max to 1.0
-                "movss %4, %%xmm1 \n\t"
-                "shufps $0x00, %%xmm1, %%xmm1 \n\t"
-                "mulps %%xmm1, %%xmm0\n\t"   // multiply by 255
-                "movaps %%xmm0, %0 \n\t"
-                : "=m"(c)
-                : "m"(c), "m"(one), "m"(zero), "m"(conv)
-                : "xmm0", "xmm1"
-           );
-        iColor *p = &(_data[at(x,y)]);
-        p->r = (uint8_t)c.x;
-        p->g = (uint8_t)c.y;
-        p->b = (uint8_t)c.z;
+    inline void clear(size_t x, size_t y)
+    {
+        _data[at(x,y)].color = 0;
     }
 
 
 private:
-    boost::uint32_t _width, _height;
+    boost::int32_t _width, _height;
     iColor *_data;
     bool ready;
 };

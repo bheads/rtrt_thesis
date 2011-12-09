@@ -21,14 +21,9 @@
 // Projects includes
 #include <cmdflags.h>
 #include <modules/window.h>
-//#include <modules/image.h>
-#include <raytracer.h>
-#include <world.h>
 
-float randf()
-{
-    return((float)rand()/RAND_MAX);
-}
+#include <raytracer.h>
+#include <modules/world.h>
 
 int main(int argc, char *argv[])
 {
@@ -44,14 +39,10 @@ int main(int argc, char *argv[])
     Image front(win.width(), win.height()), back(win.width(), win.height()); // create the images
     Image *front_p = &front, *back_p = &back;
 
-    RayTracer rt(win.width(), win.height());
     World world;
+    world.fill(10, 1);
+    RayTracer rt(world);
 
-    // create a random world
-    for(size_t items = 0; items < 25; ++items)
-    {
-        world.add_sphere((randf() * 30) - 15 , (randf() * 30) - 15, (randf() * -70) + -15 , (randf() * 10) + 2, color(randf(),randf(),randf()));
-    }
 
 #pragma omp parallel
     {
@@ -63,14 +54,11 @@ int main(int argc, char *argv[])
             {
                 // update frame
                 win.update_frame_rate();
-                // input
-                rt.moveX(win.deltaX());
-                rt.moveY(win.deltaY());
-                rt.moveZ(win.deltaZ());
                 win.clearXY();
 
                 // render the new back buffer
-                rt.render(back_p, world);
+                rt.render(back_p);
+
                 // swap buffers
                 std::swap(front_p, back_p);
             }

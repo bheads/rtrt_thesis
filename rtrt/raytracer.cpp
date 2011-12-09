@@ -1,46 +1,74 @@
 #include "raytracer.h"
 
-RayTracer::RayTracer(uint32_t width, uint32_t height)
-    : camera(width, height)
+#include <omp.h>
+
+RayTracer::RayTracer(World &world)
+    : _camera(FLAGS_width, FLAGS_height),
+      _world(world)
 {
 }
 
 
-void RayTracer::render(Image *img, World &world)
+
+void RayTracer::render(Image *_image)
 {
-    #pragma omp parallel for
-    for(ssize_t y = 0; y < img->height(); ++y)
+    Ray ray;        // current ray
+    Collision collision, light_collision;
+    color light(0.1, 0.1, 0.1);
+    vec N, L;
+
+
+#pragma omp parallel for private(light, ray, collision, N, L) shared(_image)
+    for(int32_t y = 0; y < _image->height(); ++y)
     {
-        for(ssize_t x = 0; x < img->width(); ++x)
-        {
-            img->set(x, y, cast(camera.get_ray(x, y), color(), 0, world));
+        for(int32_t x = 0; x < _image->width(); ++x)
+        {        
+            //if(cast(_camera.get_ray(ray, x, y), light, collision))
+            if(_world.cast(_camera.get_ray(ray, x, y), collision))
+            {
+                if(collision._obj->is_light())
+                {
+                    _image->set(x, y, collision._color);
+                } else {
+                    //compute shadow vector
+                    if(!_world.shadow(ray, collision, light_collision))
+                    {
+                        collision._obj->vec_to(collision._at, light_collision._obj->center(), L);
+                        collision._obj->normal(collision._at, N);
+                        L.normalize();
+                        light = collision._color * 0.2f;
+
+                         // diffuse lighting
+                        {
+
+                            float d = N.dot(L);
+                            if(d > 0.0f)
+                            {
+                                light[0] += 0.3 * d * collision._color[0] * light_collision._color[0];
+                                light[1] += 0.3 * d * collision._color[1] * light_collision._color[1] ;
+                                light[2] += 0.3 * d * collision._color[2] * light_collision._color[2];
+                            }
+                        }
+
+                        _image->set(x, y, light);
+                    }
+
+                }
+            } else
+            {
+                _image->clear(x, y);
+            }
         }
     }
 }
 
 
-color RayTracer::cast(Ray ray, color col, uint32_t depth, World &world)
+bool RayTracer::cast(Ray &ray, color &c, Collision &collision)
 {
-    if(++depth > MAX_DEPTH) return(col);
-    Collision hit = world.cast(ray);
-    if(hit.hit)
+    if(_world.cast(ray, collision))
     {
-        vec4 light_at(0, 50, 0);
-        vec4 L = light_at - hit.at.o;
-        L.normalize();
-
-        float angle = dot(hit.at.d, L);
-        if(angle > 0.0f)
-        {
-            col += 0.9 * angle *  hit.col;
-        }
-        vec4 R = L - 2.0f * hit.at.d * dot(L, hit.at.d);
-        angle = dot(ray.d, R);
-        if(angle > 0.0f)
-        {
-            col += powf(angle, 20.0f) * 0.4f * color(1,1,1);
-        }
+        // add global light
+        collision._color += c;
     }
-
-    return(col);
+    return(collision._hit);
 }
