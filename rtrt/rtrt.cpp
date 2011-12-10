@@ -40,7 +40,8 @@ int main(int argc, char *argv[])
     Image *front_p = &front, *back_p = &back;
 
     World world;
-    world.fill(10, 1);
+    world.demo0();
+    world.fill();
     RayTracer rt(world);
 
 

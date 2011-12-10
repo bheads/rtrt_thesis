@@ -7,7 +7,7 @@
 
 #include <glog/logging.h>
 
-#include <modules/ray.h>
+#include <modules/vec4.h>
 
 class BasicCamera
 {

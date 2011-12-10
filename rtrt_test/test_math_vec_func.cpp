@@ -4,7 +4,9 @@
 
 #include <modules/vec4.h>
 #include <modules/vec_func.h>
-#include <modules/color.h>
+//#include <modules/color.h>
+
+#define ACC 0.0000001
 
 SUITE( VecFuncTests )
 {
@@ -12,42 +14,42 @@ SUITE( VecFuncTests )
     {
         vec4 a( 1, 2, 3, 4 ), b( 5, 5, 5, 5 );
         vec4 c = a + b;
-        CHECK_CLOSE( c.x, a.x + b.x, 0.00001 );
-        CHECK_CLOSE( c.y, a.y + b.y, 0.00001 );
-        CHECK_CLOSE( c.z, a.z + b.z, 0.00001 );
-        CHECK_CLOSE( c.w, a.w + b.w, 0.00001 );
+        CHECK_CLOSE( c.x, a.x + b.x, ACC );
+        CHECK_CLOSE( c.y, a.y + b.y, ACC );
+        CHECK_CLOSE( c.z, a.z + b.z, ACC );
+        CHECK_CLOSE( c.w, a.w + b.w, ACC );
 
         c = a + 10;
-        CHECK_CLOSE( c.x, a.x + 10, 0.00001 );
-        CHECK_CLOSE( c.y, a.y + 10, 0.00001 );
-        CHECK_CLOSE( c.z, a.z + 10, 0.00001 );
-        CHECK_CLOSE( c.w, a.w + 10, 0.00001 );
+        CHECK_CLOSE( c.x, a.x + 10, ACC );
+        CHECK_CLOSE( c.y, a.y + 10, ACC );
+        CHECK_CLOSE( c.z, a.z + 10, ACC );
+        CHECK_CLOSE( c.w, a.w + 10, ACC );
 
         c = 10 + b;
-        CHECK_CLOSE( c.x, 10 + b.x, 0.00001 );
-        CHECK_CLOSE( c.y, 10 + b.y, 0.00001 );
-        CHECK_CLOSE( c.z, 10 + b.z, 0.00001 );
-        CHECK_CLOSE( c.w, 10 + b.w, 0.00001 );
+        CHECK_CLOSE( c.x, 10 + b.x, ACC );
+        CHECK_CLOSE( c.y, 10 + b.y, ACC );
+        CHECK_CLOSE( c.z, 10 + b.z, ACC );
+        CHECK_CLOSE( c.w, 10 + b.w, ACC );
 
         vec4 d = +a;
-        CHECK_CLOSE( d.x, +a.x, 0.00001 );
-        CHECK_CLOSE( d.y, +a.y, 0.00001 );
-        CHECK_CLOSE( d.z, +a.z, 0.00001 );
-        CHECK_CLOSE( d.w, +a.w, 0.00001 );
+        CHECK_CLOSE( d.x, +a.x, ACC );
+        CHECK_CLOSE( d.y, +a.y, ACC );
+        CHECK_CLOSE( d.z, +a.z, ACC );
+        CHECK_CLOSE( d.w, +a.w, ACC );
 
         vec4 e( 1, 2, 3, 4 );
         e += a;
-        CHECK_CLOSE( e.x, 2, 0.00001 );
-        CHECK_CLOSE( e.y, 4, 0.00001 );
-        CHECK_CLOSE( e.z, 6, 0.00001 );
-        CHECK_CLOSE( e.w, 8, 0.00001 );
+        CHECK_CLOSE( e.x, 2, ACC );
+        CHECK_CLOSE( e.y, 4, ACC );
+        CHECK_CLOSE( e.z, 6, ACC );
+        CHECK_CLOSE( e.w, 8, ACC );
 
         vec4 f( 1, 2, 3, 4 );
         f += 2;
-        CHECK_CLOSE( f.x, 1+2.0f, 0.00001 );
-        CHECK_CLOSE( f.y, 2+2.0f, 0.00001 );
-        CHECK_CLOSE( f.z, 3+2.0f, 0.00001 );
-        CHECK_CLOSE( f.w, 4+2.0f, 0.00001 );
+        CHECK_CLOSE( f.x, 1+2.0f, ACC );
+        CHECK_CLOSE( f.y, 2+2.0f, ACC );
+        CHECK_CLOSE( f.z, 3+2.0f, ACC );
+        CHECK_CLOSE( f.w, 4+2.0f, ACC );
 
 
     }
@@ -56,78 +58,78 @@ SUITE( VecFuncTests )
     {
         vec4 a( 1, 2, 3, 4 ), b( 5, 5, 5, 5 );
         vec4 c = a - b;
-        CHECK_CLOSE( c.x, a.x - b.x, 0.00001 );
-        CHECK_CLOSE( c.y, a.y - b.y, 0.00001 );
-        CHECK_CLOSE( c.z, a.z - b.z, 0.00001 );
-        CHECK_CLOSE( c.w, a.w - b.w, 0.00001 );
+        CHECK_CLOSE( c.x, a.x - b.x, ACC );
+        CHECK_CLOSE( c.y, a.y - b.y, ACC );
+        CHECK_CLOSE( c.z, a.z - b.z, ACC );
+        CHECK_CLOSE( c.w, a.w - b.w, ACC );
 
         c = a - 10;
-        CHECK_CLOSE( c.x, a.x - 10, 0.00001 );
-        CHECK_CLOSE( c.y, a.y - 10, 0.00001 );
-        CHECK_CLOSE( c.z, a.z - 10, 0.00001 );
-        CHECK_CLOSE( c.w, a.w - 10, 0.00001 );
+        CHECK_CLOSE( c.x, a.x - 10, ACC );
+        CHECK_CLOSE( c.y, a.y - 10, ACC );
+        CHECK_CLOSE( c.z, a.z - 10, ACC );
+        CHECK_CLOSE( c.w, a.w - 10, ACC );
 
         c = 10 - b;
-        CHECK_CLOSE( c.x, 10 - b.x, 0.00001 );
-        CHECK_CLOSE( c.y, 10 - b.y, 0.00001 );
-        CHECK_CLOSE( c.z, 10 - b.z, 0.00001 );
-        CHECK_CLOSE( c.w, 10 - b.w, 0.00001 );
+        CHECK_CLOSE( c.x, 10 - b.x, ACC );
+        CHECK_CLOSE( c.y, 10 - b.y, ACC );
+        CHECK_CLOSE( c.z, 10 - b.z, ACC );
+        CHECK_CLOSE( c.w, 10 - b.w, ACC );
                 
         vec4 d = -a;
-        CHECK_CLOSE( d.x, -a.x, 0.00001 );
-        CHECK_CLOSE( d.y, -a.y, 0.00001 );
-        CHECK_CLOSE( d.z, -a.z, 0.00001 );
-        CHECK_CLOSE( d.w, -a.w, 0.00001 );
+        CHECK_CLOSE( d.x, -a.x, ACC );
+        CHECK_CLOSE( d.y, -a.y, ACC );
+        CHECK_CLOSE( d.z, -a.z, ACC );
+        CHECK_CLOSE( d.w, -a.w, ACC );
 
         vec4 e( 1, 2, 3, 6 );
         e -= a;
-        CHECK_CLOSE( e.x, 0, 0.00001 );
-        CHECK_CLOSE( e.y, 0, 0.00001 );
-        CHECK_CLOSE( e.z, 0, 0.00001 );
-        CHECK_CLOSE( e.w, 2, 0.00001 );
+        CHECK_CLOSE( e.x, 0, ACC );
+        CHECK_CLOSE( e.y, 0, ACC );
+        CHECK_CLOSE( e.z, 0, ACC );
+        CHECK_CLOSE( e.w, 2, ACC );
 
         vec4 f( 1, 2, 3, 4 );
         f -= 2;
-        CHECK_CLOSE( f.x, 1-2.0f, 0.00001 );
-        CHECK_CLOSE( f.y, 2-2.0f, 0.00001 );
-        CHECK_CLOSE( f.z, 3-2.0f, 0.00001 );
-        CHECK_CLOSE( f.w, 4-2.0f, 0.00001 );
+        CHECK_CLOSE( f.x, 1-2.0f, ACC );
+        CHECK_CLOSE( f.y, 2-2.0f, ACC );
+        CHECK_CLOSE( f.z, 3-2.0f, ACC );
+        CHECK_CLOSE( f.w, 4-2.0f, ACC );
     }
 
     TEST( Vec4Multiplication )
     {
         vec4 a( 1, 2, 3, 4 ), b( 5, 5, 5, 5 );
         vec4 c = a * b;
-        CHECK_CLOSE( c.x, a.x * b.x, 0.00001 );
-        CHECK_CLOSE( c.y, a.y * b.y, 0.00001 );
-        CHECK_CLOSE( c.z, a.z * b.z, 0.00001 );
-        CHECK_CLOSE( c.w, a.w * b.w, 0.00001 );
+        CHECK_CLOSE( c.x, a.x * b.x, ACC );
+        CHECK_CLOSE( c.y, a.y * b.y, ACC );
+        CHECK_CLOSE( c.z, a.z * b.z, ACC );
+        CHECK_CLOSE( c.w, a.w * b.w, ACC );
 
         c = a * 10;
-        CHECK_CLOSE( c.x, a.x * 10, 0.00001 );
-        CHECK_CLOSE( c.y, a.y * 10, 0.00001 );
-        CHECK_CLOSE( c.z, a.z * 10, 0.00001 );
-        CHECK_CLOSE( c.w, a.w * 10, 0.00001 );
+        CHECK_CLOSE( c.x, a.x * 10, ACC );
+        CHECK_CLOSE( c.y, a.y * 10, ACC );
+        CHECK_CLOSE( c.z, a.z * 10, ACC );
+        CHECK_CLOSE( c.w, a.w * 10, ACC );
 
         c = 10 * b;
-        CHECK_CLOSE( c.x, 10 * b.x, 0.00001 );
-        CHECK_CLOSE( c.y, 10 * b.y, 0.00001 );
-        CHECK_CLOSE( c.z, 10 * b.z, 0.00001 );
-        CHECK_CLOSE( c.w, 10 * b.w, 0.00001 );
+        CHECK_CLOSE( c.x, 10 * b.x, ACC );
+        CHECK_CLOSE( c.y, 10 * b.y, ACC );
+        CHECK_CLOSE( c.z, 10 * b.z, ACC );
+        CHECK_CLOSE( c.w, 10 * b.w, ACC );
 
         vec4 e( 1, 2, 3, 4 );
         e *= a;
-        CHECK_CLOSE( e.x, 1, 0.00001 );
-        CHECK_CLOSE( e.y, 4, 0.00001 );
-        CHECK_CLOSE( e.z, 9, 0.00001 );
-        CHECK_CLOSE( e.w, 16, 0.00001 );
+        CHECK_CLOSE( e.x, 1, ACC );
+        CHECK_CLOSE( e.y, 4, ACC );
+        CHECK_CLOSE( e.z, 9, ACC );
+        CHECK_CLOSE( e.w, 16, ACC );
 
         vec4 f( 1, 2, 3, 4 );
         f *= 2;
-        CHECK_CLOSE( f.x, 2.0f, 0.00001 );
-        CHECK_CLOSE( f.y, 4.0f, 0.00001 );
-        CHECK_CLOSE( f.z, 6.0f, 0.00001 );
-        CHECK_CLOSE( f.w, 8.0f, 0.00001 );
+        CHECK_CLOSE( f.x, 2.0f, ACC );
+        CHECK_CLOSE( f.y, 4.0f, ACC );
+        CHECK_CLOSE( f.z, 6.0f, ACC );
+        CHECK_CLOSE( f.w, 8.0f, ACC );
     }
 
 
@@ -135,36 +137,36 @@ SUITE( VecFuncTests )
     {
         vec4 a( 1, 2, 3, 4 ), b( 5, 5, 5, 5 );
         vec4 c = a / b;
-        CHECK_CLOSE( c.x, a.x / b.x, 0.00001 );
-        CHECK_CLOSE( c.y, a.y / b.y, 0.00001 );
-        CHECK_CLOSE( c.z, a.z / b.z, 0.00001 );
-        CHECK_CLOSE( c.w, a.w / b.w, 0.00001 );
+        CHECK_CLOSE( c.x, a.x / b.x, ACC );
+        CHECK_CLOSE( c.y, a.y / b.y, ACC );
+        CHECK_CLOSE( c.z, a.z / b.z, ACC );
+        CHECK_CLOSE( c.w, a.w / b.w, ACC );
 
         c = a / 10;
-        CHECK_CLOSE( c.x, a.x / 10, 0.00001 );
-        CHECK_CLOSE( c.y, a.y / 10, 0.00001 );
-        CHECK_CLOSE( c.z, a.z / 10, 0.00001 );
-        CHECK_CLOSE( c.w, a.w / 10, 0.00001 );
+        CHECK_CLOSE( c.x, a.x / 10, ACC );
+        CHECK_CLOSE( c.y, a.y / 10, ACC );
+        CHECK_CLOSE( c.z, a.z / 10, ACC );
+        CHECK_CLOSE( c.w, a.w / 10, ACC );
 
         c = 10 / b;
-        CHECK_CLOSE( c.x, 10 / b.x, 0.00001 );
-        CHECK_CLOSE( c.y, 10 / b.y, 0.00001 );
-        CHECK_CLOSE( c.z, 10 / b.z, 0.00001 );
-        CHECK_CLOSE( c.w, 10 / b.w, 0.00001 );
+        CHECK_CLOSE( c.x, 10 / b.x, ACC );
+        CHECK_CLOSE( c.y, 10 / b.y, ACC );
+        CHECK_CLOSE( c.z, 10 / b.z, ACC );
+        CHECK_CLOSE( c.w, 10 / b.w, ACC );
 
         vec4 e( 1, 2, 3, 8 );
         e /= a;
-        CHECK_CLOSE( e.x, 1, 0.00001 );
-        CHECK_CLOSE( e.y, 1, 0.00001 );
-        CHECK_CLOSE( e.z, 1, 0.00001 );
-        CHECK_CLOSE( e.w, 2, 0.00001 );
+        CHECK_CLOSE( e.x, 1, ACC );
+        CHECK_CLOSE( e.y, 1, ACC );
+        CHECK_CLOSE( e.z, 1, ACC );
+        CHECK_CLOSE( e.w, 2, ACC );
 
         vec4 f( 1, 2, 3, 4 );
         f /= 2;
-        CHECK_CLOSE( f.x, 1/2.0f, 0.00001 );
-        CHECK_CLOSE( f.y, 2/2.0f, 0.00001 );
-        CHECK_CLOSE( f.z, 3/2.0f, 0.00001 );
-        CHECK_CLOSE( f.w, 4/2.0f, 0.00001 );
+        CHECK_CLOSE( f.x, 1/2.0f, ACC );
+        CHECK_CLOSE( f.y, 2/2.0f, ACC );
+        CHECK_CLOSE( f.z, 3/2.0f, ACC );
+        CHECK_CLOSE( f.w, 4/2.0f, ACC );
 
     }
 
@@ -187,17 +189,17 @@ SUITE( VecFuncTests )
         */
         vec4 a( 3, -3, 1 ), b( 4, 9, 2 );
         vec4 c = cross( a, b );
-        CHECK_CLOSE( c.x, -15, 0.00001 );
-        CHECK_CLOSE( c.y, -2, 0.00001 );
-        CHECK_CLOSE( c.z, 39, 0.00001 );
-        CHECK_CLOSE( c.w, 0, 0.00001 );
+        CHECK_CLOSE( c.x, -15, ACC );
+        CHECK_CLOSE( c.y, -2, ACC );
+        CHECK_CLOSE( c.z, 39, ACC );
+        CHECK_CLOSE( c.w, 0, ACC );
 
         vec4 d( 3, -2, -2 ), e( -1, 0, 5 );
         vec4 f = cross( d, e );
-        CHECK_CLOSE( f.x, -10, 0.00001 );
-        CHECK_CLOSE( f.y, -13, 0.00001 );
-        CHECK_CLOSE( f.z, -2, 0.00001 );
-        CHECK_CLOSE( f.w, 0, 0.00001 );
+        CHECK_CLOSE( f.x, -10, ACC );
+        CHECK_CLOSE( f.y, -13, ACC );
+        CHECK_CLOSE( f.z, -2, ACC );
+        CHECK_CLOSE( f.w, 0, ACC );
     }
 
     TEST( ColorClamp )
@@ -205,37 +207,37 @@ SUITE( VecFuncTests )
         color a( 5.0, 6.0, -4.5, 1.9 ), b( 0.0, 1.0, 0.5, 3.00 );
 
         color ca = clamped( a );
-        CHECK_CLOSE( ca.x, 1.0000, 0.00001 );
-        CHECK_CLOSE( ca.y, 1.0000, 0.00001 );
-        CHECK_CLOSE( ca.z, 0.0000, 0.00001 );
-        CHECK_CLOSE( ca.w, 1.0000, 0.00001 );
-        CHECK_CLOSE( a.x, 5.0, 0.00001 );
-        CHECK_CLOSE( a.y, 6.0, 0.00001 );
-        CHECK_CLOSE( a.z, -4.5, 0.00001 );
-        CHECK_CLOSE( a.w, 1.9, 0.00001 );
+        CHECK_CLOSE( ca.x, 1.0000, ACC );
+        CHECK_CLOSE( ca.y, 1.0000, ACC );
+        CHECK_CLOSE( ca.z, 0.0000, ACC );
+        CHECK_CLOSE( ca.w, 1.0000, ACC );
+        CHECK_CLOSE( a.x, 5.0, ACC );
+        CHECK_CLOSE( a.y, 6.0, ACC );
+        CHECK_CLOSE( a.z, -4.5, ACC );
+        CHECK_CLOSE( a.w, 1.9, ACC );
 
         color cb = clamped( b, 1.0, 2.0 );
-        CHECK_CLOSE( cb.x, 1.0000, 0.00001 );
-        CHECK_CLOSE( cb.y, 1.0000, 0.00001 );
-        CHECK_CLOSE( cb.z, 1.0000, 0.00001 );
-        CHECK_CLOSE( cb.w, 2.0000, 0.00001 );
-        CHECK_CLOSE( b.x, 0.0, 0.00001 );
-        CHECK_CLOSE( b.y, 1.0, 0.00001 );
-        CHECK_CLOSE( b.z, 0.5, 0.00001 );
-        CHECK_CLOSE( b.w, 3.00, 0.00001 );
+        CHECK_CLOSE( cb.x, 1.0000, ACC );
+        CHECK_CLOSE( cb.y, 1.0000, ACC );
+        CHECK_CLOSE( cb.z, 1.0000, ACC );
+        CHECK_CLOSE( cb.w, 2.0000, ACC );
+        CHECK_CLOSE( b.x, 0.0, ACC );
+        CHECK_CLOSE( b.y, 1.0, ACC );
+        CHECK_CLOSE( b.z, 0.5, ACC );
+        CHECK_CLOSE( b.w, 3.00, ACC );
 
 
         clamp( a );
-        CHECK_CLOSE( a.x, 1.0000, 0.00001 );
-        CHECK_CLOSE( a.y, 1.0000, 0.00001 );
-        CHECK_CLOSE( a.z, 0.0000, 0.00001 );
-        CHECK_CLOSE( a.w, 1.0000, 0.00001 );
+        CHECK_CLOSE( a.x, 1.0000, ACC );
+        CHECK_CLOSE( a.y, 1.0000, ACC );
+        CHECK_CLOSE( a.z, 0.0000, ACC );
+        CHECK_CLOSE( a.w, 1.0000, ACC );
 
         clamp( b );
-        CHECK_CLOSE( b.x, 0.0000, 0.00001 );
-        CHECK_CLOSE( b.y, 1.0000, 0.00001 );
-        CHECK_CLOSE( b.z, 0.5, 0.00001 );
-        CHECK_CLOSE( b.w, 1.0, 0.00001 );
+        CHECK_CLOSE( b.x, 0.0000, ACC );
+        CHECK_CLOSE( b.y, 1.0000, ACC );
+        CHECK_CLOSE( b.z, 0.5, ACC );
+        CHECK_CLOSE( b.w, 1.0, ACC );
     }
 }
 

@@ -5,7 +5,7 @@
 #include <cmdflags.h>
 #include <modules/basiccamera.h>
 #include <modules/image.h>
-#include <modules/ray.h>
+#include <modules/vec4.h>
 #include <modules/world.h>
 
 
