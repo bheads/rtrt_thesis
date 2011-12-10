@@ -4,8 +4,8 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/tuple/tuple.hpp>
 
-#include <modules/vec4.h>
-#include <modules/vec_func.h>
+#include <modules/color.h>
+#include <modules/ray.h>
 
 
 class Object

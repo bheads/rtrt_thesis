@@ -5,27 +5,3 @@ src/*.swp
 rtrt-build-desktop-Desktop_Qt_4_7_3_for_GCC__Qt_SDK__Release/*
 
 rtrt/rtrt.pro.user
-
-rtrt_test/rtrt_test.pro.user
-
-rtrt_test/rtrt_test.pro.user
-
-rtrt_test/test_math_vec_func.cpp
-
-rtrt_test-build-desktop-Desktop_Qt_4_7_3_for_GCC__Qt_SDK__Release/Makefile
-
-rtrt_test-build-desktop-Desktop_Qt_4_7_3_for_GCC__Qt_SDK__Release/main.o
-
-rtrt_test-build-desktop-Desktop_Qt_4_7_3_for_GCC__Qt_SDK__Release/rtrt_test.app/Contents/Info.plist
-
-rtrt_test-build-desktop-Desktop_Qt_4_7_3_for_GCC__Qt_SDK__Release/rtrt_test.app/Contents/MacOS/rtrt_test
-
-rtrt_test-build-desktop-Desktop_Qt_4_7_3_for_GCC__Qt_SDK__Release/vec_func.o
-
-rtrt_test-build-desktop-Desktop_Qt_4_7_3_for_GCC__Qt_SDK__Release/test_math_vec_func.o
-
-rtrt_test-build-desktop-Desktop_Qt_4_7_3_for_GCC__Qt_SDK__Release/test_math_vec4.o
-
-rtrt_test-build-desktop-Desktop_Qt_4_7_3_for_GCC__Qt_SDK__Release/rtrt_test.app/Contents/Resources/empty.lproj
-
-rtrt_test-build-desktop-Desktop_Qt_4_7_3_for_GCC__Qt_SDK__Release/rtrt_test.app/Contents/PkgInfo

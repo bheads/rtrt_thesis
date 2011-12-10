@@ -176,30 +176,19 @@ struct vec4
 
 }__attribute__((aligned(16))); ///< Make sure this is 16 byte aligned. Can use movaps
 
-
 /**
  *  \typedef vec4 color
  *   rtrt Colors are also vectors
 */
 typedef vec4 color;
 
-/// \typedef vec4 vec
-typedef vec4 vec;
-
 struct Ray
 {
-    Ray()
-        : _o(),
-          _d()
+    Ray(vec4 _o, vec4 _d)
+        : o(_o), d(_d)
     {}
 
-    Ray(vec4 o, vec4 d)
-        : _o(o),
-          _d(d)
-    {}
-
-    vec4 _o, _d;
+    vec4 o, d;
 };
-
 
 #endif

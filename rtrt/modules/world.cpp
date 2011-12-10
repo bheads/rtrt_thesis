@@ -8,9 +8,6 @@ World::World()
 
 void World::fill(uint32_t num, uint32_t lights)
 {
-    _objects.clear();
-    _lights.clear();
-
     for(uint32_t i = 0; i < num; ++i)
     {
         _objects.push_back(boost::shared_ptr<Object>(new Sphere()));
@@ -19,20 +16,7 @@ void World::fill(uint32_t num, uint32_t lights)
     for(uint32_t i = 0; i < lights; ++i)
     {
         _lights.push_back(boost::shared_ptr<Object>(new Light()));
-    }  
-}
-
-void World::demo0()
-{
-    _objects.clear();
-    _lights.clear();
-
-
-    _objects.push_back(boost::shared_ptr<Object>(new Sphere(vec(-15, 10, -50), 10, vec(1, 0, 0))));
-    _objects.push_back(boost::shared_ptr<Object>(new Sphere(vec(15, 10, -50), 10, vec(0, 1, 0))));
-    _objects.push_back(boost::shared_ptr<Object>(new Sphere(vec(0, 10, -200), 50, vec(0, 0, 1))));
-
-    _lights.push_back(boost::shared_ptr<Object>(new Light(vec(0, 0, 10), 0.01, vec(1, 1, 1))));
+    }
 }
 
 
@@ -52,7 +36,6 @@ bool World::cast(const Ray &ray, Collision &collision)
             collision._dist = dist;
             collision._color = c;
             obj->at(ray, dist, collision._at);
-            min = dist;
         }
     }
 
@@ -82,7 +65,7 @@ bool World::shadow(Ray &ray, const Collision &collision, Collision &light_collis
     BOOST_FOREACH(const boost::shared_ptr<Object> &light, _lights)
     {
         light->vec_to(collision._at, light->center(), ray._d);
-        min = ray._d.length();
+        min = ray._d.norm();
         ray._d.normalize();
 
         BOOST_FOREACH(const boost::shared_ptr<Object> &obj, _objects)

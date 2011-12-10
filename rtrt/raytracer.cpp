@@ -12,14 +12,13 @@ RayTracer::RayTracer(World &world)
 
 void RayTracer::render(Image *_image)
 {
-    Ray ray, light_ray;        // current ray
-    Collision collision;
-    color pixel(0, 0, 0), tmp;
+    Ray ray;        // current ray
+    Collision collision, light_collision;
+    color light(0.1, 0.1, 0.1);
     vec N, L;
-    float dist, dret;
 
 
-#pragma omp parallel for private(ray, light_ray, collision,pixel, tmp, N, L, dist, dret) shared(_image)
+#pragma omp parallel for private(light, ray, collision, N, L) shared(_image)
     for(int32_t y = 0; y < _image->height(); ++y)
     {
         for(int32_t x = 0; x < _image->width(); ++x)
@@ -29,50 +28,31 @@ void RayTracer::render(Image *_image)
             {
                 if(collision._obj->is_light())
                 {
-                    // render the light in all its glory
                     _image->set(x, y, collision._color);
                 } else {
-                    // setup lighting
-                    pixel = 0;
-
-                    //compute light effect
-                    BOOST_FOREACH(const boost::shared_ptr<Object> &light, _world.lights())
+                    //compute shadow vector
+                    if(!_world.shadow(ray, collision, light_collision))
                     {
-                        // compute normal at collition point
+                        collision._obj->vec_to(collision._at, light_collision._obj->center(), L);
                         collision._obj->normal(collision._at, N);
-                        // compute vector to light
-                        L = light->center() - collision._at;
-                        // compute length of light vector
-                        dist = L.length();
-                        // compute distance to light
                         L.normalize();
-                        // compute ray from collision point to light source
-                        light_ray._o = collision._at;
-                        light_ray._d = L;
+                        light = collision._color * 0.2f;
 
-                        // test for collision with other objects
-                        BOOST_FOREACH(const boost::shared_ptr<Object> &obj, _world.objects())
+                         // diffuse lighting
                         {
-                            if((dret = obj->collision(light_ray, tmp)) > -1.0f && dret < dist)
+
+                            float d = N.dot(L);
+                            if(d > 0.0f)
                             {
-                                dist = -1.0f;
-                                break;
+                                light[0] += 0.3 * d * collision._color[0] * light_collision._color[0];
+                                light[1] += 0.3 * d * collision._color[1] * light_collision._color[1] ;
+                                light[2] += 0.3 * d * collision._color[2] * light_collision._color[2];
                             }
                         }
 
-                        // did we hit an object?
-                        if(dist > 0)
-                        {
-                            float _dot = dot(N, L);
-                            if(_dot > 0)
-                            {
-                                pixel += 0.3 * _dot * collision._color * light->get_color();
-                            }
-                        }
+                        _image->set(x, y, light);
+                    }
 
-                    } // light test
-
-                    _image->set(x, y, pixel);
                 }
             } else
             {
