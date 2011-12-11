@@ -150,8 +150,8 @@ struct vec4
                 "shufps $0xb1, %%xmm0, %%xmm0 \n\t" // b1 1011 0001 (2 3 0 1) xmm1 (zw, zw, xy, xy)
                 "addps %%xmm1, %%xmm0 \n\t"         // add xmm1 to xmm0 (xyzw, xyzw, xyzw, xyzw)
                 "sqrtps %%xmm0, %%xmm0 \n\t"        // take the sqrt of xmm0
-                "divps %%xmm2, %%xmm0 \n\t"         // divide
-                "movaps %%xmm0, %0 \n\t"
+                "divps %%xmm0, %%xmm2 \n\t"         // divide
+                "movaps %%xmm2, %0 \n\t"
                 : "=m"(*this)
                 : "m"(*this)
                 : "xmm0", "xmm1", "xmm2"
