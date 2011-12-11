@@ -79,7 +79,8 @@ void Window::init_gl()
 void Window::update_title_with_frame_rate()
 {
     std::stringstream ss;
-    ss << title << ": " << framerate;
+    ss << title << " -- RT_FPS: " << PerformanceMonitor::instance().RT_FPS.rate() <<
+          " -- RPS: " << PerformanceMonitor::instance().RPS.rate();
     glfwSetWindowTitle(ss.str().c_str());
 }
 

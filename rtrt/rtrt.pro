@@ -19,7 +19,9 @@ SOURCES += \
     modules/objects/sphere.cpp \
     modules/random.cpp \
     modules/objects/light.cpp \
-    modules/vec_func.cpp
+    modules/vec_func.cpp \
+    modules/performancecounter.cpp \
+    modules/performancemonitor.cpp
 
 HEADERS += \
     cmdflags.h \
@@ -33,7 +35,13 @@ HEADERS += \
     modules/random.h \
     modules/objects/light.h \
     modules/vec4.h \
-    modules/vec_func.h
+    modules/vec_func.h \
+    modules/performancecounter.h \
+    modules/performancemonitor.h
+
+
+
+
 
 
 

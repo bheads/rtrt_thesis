@@ -24,12 +24,13 @@
 
 #include <raytracer.h>
 #include <modules/world.h>
+#include <modules/performancemonitor.h>
 
 int main(int argc, char *argv[])
 {
     srand(time(NULL));
     omp_set_nested(1);
-    omp_set_num_threads(8);
+    omp_set_num_threads(16);
 
     // process command line
     parse_commandline(&argc, &argv);
@@ -40,10 +41,9 @@ int main(int argc, char *argv[])
     Image *front_p = &front, *back_p = &back;
 
     World world;
-    world.fill(65, 1);
-    //world.demo0();
+    world.fill(5, 1);
+    world.demo0();
     RayTracer rt(world);
-
 
 #pragma omp parallel
     {
@@ -54,7 +54,8 @@ int main(int argc, char *argv[])
             while(win.is_running())
             {
                 // update frame
-                win.update_frame_rate();
+                PerformanceMonitor::instance().RT_FPS.count();
+                //win.update_frame_rate();
                 win.clearXY();
 
                 // render the new back buffer
@@ -70,10 +71,12 @@ int main(int argc, char *argv[])
             while(win.is_running())
             {
                 // main rendering loop, keep rendering the front buffer
+                PerformanceMonitor::instance().GL_FPS.count();
                 win.clear(); // clear the render windows back buffer
                 if(FLAGS_fps) win.update_title_with_frame_rate(); // show the frame rate in the window title
                 win.render_image(*front_p); // render the image to the back buffer
                 win.update(); // swap the back buffer with the front buffer
+                PerformanceMonitor::instance().update();
             }
         }
     }
@@ -83,6 +86,7 @@ int main(int argc, char *argv[])
     front.destroy_image();
     back.destroy_image();
     win.destroy_window();
+    LOG(INFO) << PerformanceMonitor::instance();
 
     return(0);
 }

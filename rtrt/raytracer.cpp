@@ -28,6 +28,7 @@ void RayTracer::render(Image *_image)
         {        
             // get our ray
             _camera.get_ray(ray, x, y);
+            PerformanceMonitor::instance().RPS.count();
             hit = false;
             dist = 100000;
 

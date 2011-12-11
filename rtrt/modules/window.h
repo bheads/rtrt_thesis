@@ -14,6 +14,7 @@
 // Project
 #include <cmdflags.h>
 #include <modules/image.h>
+#include <modules/performancemonitor.h>
 
 class Window
 {
