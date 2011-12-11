@@ -30,6 +30,7 @@ const vec4 operator-( float, const vec4 & );
 const vec4 operator-( const vec4 & );
 vec4 & operator -=( vec4 &, const vec4 & );
 vec4 & operator -=( vec4 &, float );
+vec4 &sub(const vec4 &a, const vec4 &b, vec4 &v);
 
 // Multiplication
 const vec4 operator*( const vec4 &, const vec4 & );

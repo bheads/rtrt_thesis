@@ -42,9 +42,9 @@ public:
 
     inline void set(size_t x, size_t y, color c)
     {
-        clamp(c);
+        clamp(c) *= 255;
 
-        c  *= 255;
+        //c  *= 255;
         register iColor *p = &(_data[at(x,y)]);
         p->r = (uint8_t)c.x;
         p->g = (uint8_t)c.y;

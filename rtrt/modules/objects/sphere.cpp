@@ -10,12 +10,12 @@ Sphere::Sphere()
     _c.x = Random::getf();
     _c.y = Random::getf();
     _c.z = Random::getf();
-    _r = Random::getf(1, 5);
+    _r = Random::getf(1, 15);
     _dia = _r * _r;
 
-    _pos.x = Random::getf(-25, 25);
-    _pos.y = Random::getf(-25, 25);
-    _pos.z = Random::getf(5, 100);
+    _pos.x = Random::getf(-75, 75);
+    _pos.y = Random::getf(-75, 75);
+    _pos.z = Random::getf(-60, 100);
 
     // LOG(INFO) << _pos << "  " << _c;
 }
@@ -37,11 +37,12 @@ Sphere::~Sphere()
 
 float Sphere::collision(const Ray &ray, float max)
 {
-    vec m = ray._o - _pos;
+    vec m;
+    sub(ray._o, _pos, m);
     float b = dot(m, ray._d);
     float c = dot(m, m) - _dia;
     if(c > 0.0f && b > 0.0f) return(-1.0f);
-    float discr = b*b - c;
+    float discr = b * b - c;
     if(discr < 0.0f) return(-1.0f);
     float t = -b * sqrtf(discr);
     if( t < 0.0f || t > max) t = -1.0f;
@@ -57,14 +58,16 @@ vec &Sphere::at(const Ray &ray, float dist, vec &v)
 
 float Sphere::vec_to(const vec &from, const vec &to, vec &v)
 {
-    v = to - from;
+    sub(to, from, v);
+    //v = to - from;
     return(v.length());
 }
 
 
 vec &Sphere::normal(const vec &at, vec &N)
 {
-    N = (_pos - at);
-    N.normalize();
+    sub(_pos, at, N).normalize();
+    //N = (_pos - at);
+    //N.normalize();
     return N;
 }

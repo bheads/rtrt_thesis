@@ -14,7 +14,6 @@ public:
     Object();
     virtual ~Object() {}
 
-
     virtual float collision(const Ray &ray, float max) = 0;
     virtual bool is_light() = 0;
     virtual vec &at(const Ray &ray, float dist, vec &v) = 0;

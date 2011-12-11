@@ -13,7 +13,6 @@ RayTracer::RayTracer(World &world)
 void RayTracer::render(Image *_image)
 {
     Ray ray, light_ray;        // current ray
-    //Collision collision, light_collision;
     color pixel;
     vec N, L, R;
     float dist, dret;
@@ -84,7 +83,7 @@ void RayTracer::render(Image *_image)
                             float n_dot_l = dot(N, L);
                             if(n_dot_l > 0.0f)
                             {
-                                pixel += 0.7 * n_dot_l * obj_hit->get_color() * light->get_color();
+                                pixel += 1 * n_dot_l * obj_hit->get_color() * light->get_color();
                             }
 
                             // specular highlights
@@ -92,7 +91,7 @@ void RayTracer::render(Image *_image)
                             float spec_dot = dot(light_ray._d, R);
                             if(spec_dot > 0.0f)
                             {
-                                pixel += 0.45 * powf(spec_dot, 20.0f) * light->get_color();
+                                pixel += 0 * powf(spec_dot, 20.0f) * light->get_color();
                             }
 
                         }  // not in shadow

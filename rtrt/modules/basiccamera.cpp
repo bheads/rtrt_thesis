@@ -3,7 +3,7 @@
 BasicCamera::BasicCamera(uint32_t width, uint32_t height)
     :_width(width),
       _height(height),
-      _C(0, 0, 0),
+      _C(0, 0, -50),
       _p(0, 0, 1),
       _u(-1, 0, 0),
       _v(0, 1, 0),

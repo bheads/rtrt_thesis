@@ -270,6 +270,29 @@ vec4 & operator-=( vec4 &lhs, const vec4 &rhs )
     return( lhs );
 }
 
+
+/**
+ *  \brief  Subs two vec4s.
+ *
+ *      The method subs two vec4 objects togeather.  Uses SSE.
+ *
+ *  \param lhs Left hand side of operation.
+ *  \param rhs Right hand side of operation.
+ *  \return Returns lhs - rhs.
+ */
+vec4 &sub(const vec4 &a, const vec4 &b, vec4 &v)
+{
+    asm(    "movaps %1, %%xmm0 \n\t"
+            "movaps %2, %%xmm1 \n\t"
+            "subps %%xmm1, %%xmm0 \n\t"
+            "movaps %%xmm0, %0 \n\t"
+            : "=m"(v)
+            : "m"(a), "m"(b)
+            : "xmm0", "xmm1"
+       );
+    return(v);
+}
+
 /**
  *  \brief  Subs a vec4 by a scalar.
  *
