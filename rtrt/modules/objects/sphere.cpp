@@ -55,10 +55,10 @@ vec &Sphere::at(const Ray &ray, float dist, vec &v)
 }
 
 
-vec &Sphere::vec_to(const vec &from, const vec &to, vec &v)
+float Sphere::vec_to(const vec &from, const vec &to, vec &v)
 {
     v = to - from;
-    return(v);
+    return(v.norm());
 }
 
 

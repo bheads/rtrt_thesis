@@ -21,7 +21,7 @@ public:
     virtual float collision(const Ray &ray, float max);
     virtual bool is_light() { return false; }
     virtual vec &at(const Ray &ray, float dist, vec &v);
-    virtual vec &vec_to(const vec &from, const vec &to, vec &v);
+    virtual float vec_to(const vec &from, const vec &to, vec &v);
     virtual const vec &center() { return(_pos); }
     virtual const color&get_color() {return(_c);}
     virtual vec &normal(const vec &at, vec &N);

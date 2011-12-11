@@ -63,9 +63,8 @@ void RayTracer::render(Image *_image)
 
                     BOOST_FOREACH(const ObjectPtr &light, _world.lights())
                     {
-                        obj_hit->vec_to(at, light->center(), L);
+                        dist = obj_hit->vec_to(at, light->center(), L);
                         obj_hit->normal(at, N);
-                        dist = L.norm();
                         L.normalize();
                         light_ray._o = at;
                         light_ray._d = L;
@@ -93,7 +92,7 @@ void RayTracer::render(Image *_image)
                             float spec_dot = light_ray._d.dot(R);
                             if(spec_dot > 0.0f)
                             {
-                                pixel += 0.3 * powf(spec_dot, 20.0f) * light->get_color();
+                                pixel += 0.45 * powf(spec_dot, 20.0f) * light->get_color();
                             }
 
                         }  // not in shadow
