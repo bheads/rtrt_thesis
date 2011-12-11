@@ -26,9 +26,10 @@ Ray &BasicCamera::get_ray(Ray &ray, float x, float y)
 
     ray._o = _C;
 
-    ray._d[0] = x;
-    ray._d[1] = y;
-    ray._d[2] = 1.01f;
+    ray._d.x = x;
+    ray._d.y = y;
+    ray._d.z = 1.01f;
+    ray._d.w = 0;
     ray._d.normalize();
 
     return(ray);

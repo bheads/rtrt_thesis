@@ -5,7 +5,7 @@ Light::Light()
 {
     _r = 0.00001;
     _dia = _r + _r;
-    _c.fill(1);
+    _c = 1;
 }
 
 

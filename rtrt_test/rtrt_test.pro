@@ -10,11 +10,13 @@ SOURCES += \
     test_math_vec4.cpp \
     test_math_vec_func.cpp \
     main.cpp \
-    ../rtrt/modules/vec_func.cpp
+    ../rtrt/modules/vec_func.cpp \
+    ../rtrt/modules/random.cpp
 
 HEADERS += \
     ../rtrt/modules/vec4.h \
     ../rtrt/modules/vec_func.h
+
 
 
 

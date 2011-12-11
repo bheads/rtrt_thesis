@@ -9,7 +9,8 @@
 
 // Project includes
 #include <cmdflags.h>
-#include <modules/color.h>
+#include <modules/vec4.h>
+#include <modules/vec_func.h>
 
 
 union iColor
@@ -41,15 +42,13 @@ public:
 
     inline void set(size_t x, size_t y, color c)
     {
-        if(c[0] > 1.0f) c[0] = 1.0f;
-        if(c[1] > 1.0f) c[1] = 1.0f;
-        if(c[2] > 1.0f) c[2] = 1.0f;
+        clamp(c);
 
         c  *= 255;
         register iColor *p = &(_data[at(x,y)]);
-        p->r = (uint8_t)c[0];
-        p->g = (uint8_t)c[1];
-        p->b = (uint8_t)c[2];
+        p->r = (uint8_t)c.x;
+        p->g = (uint8_t)c.y;
+        p->b = (uint8_t)c.z;
     }
 
     inline void clear(size_t x, size_t y)

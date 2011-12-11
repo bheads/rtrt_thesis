@@ -82,7 +82,7 @@ bool World::shadow(Ray &ray, const Collision &collision, Collision &light_collis
     BOOST_FOREACH(const boost::shared_ptr<Object> &light, _lights)
     {
         light->vec_to(collision._at, light->center(), ray._d);
-        min = ray._d.norm();
+        min = ray._d.length();
         ray._d.normalize();
 
         BOOST_FOREACH(const boost::shared_ptr<Object> &obj, _objects)

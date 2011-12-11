@@ -2,7 +2,8 @@
 #define LIGHT_H
 
 #include <modules/objects/sphere.h>
-#include <modules/ray.h>
+#include <modules/vec4.h>
+#include <modules/vec_func.h>
 #include <modules/random.h>
 
 class Light : public Sphere

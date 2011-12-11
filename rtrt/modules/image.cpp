@@ -1,6 +1,5 @@
 #include "image.h"
 
-#include <modules/color.h>
 
 Image::Image()
     : _width(0), _height(0), _data(NULL), ready(false)

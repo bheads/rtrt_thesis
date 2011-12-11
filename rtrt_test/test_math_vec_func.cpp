@@ -4,7 +4,6 @@
 
 #include <modules/vec4.h>
 #include <modules/vec_func.h>
-#include <modules/color.h>
 
 SUITE( VecFuncTests )
 {

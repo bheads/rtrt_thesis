@@ -543,6 +543,7 @@ vec4 & operator/=( vec4 &lhs, float rhs )
 float dot( const vec4 &a, const vec4 &b )
 {
     float ret = 0.0f;  // Used to store the return value.
+
     asm(    "movaps %1, %%xmm0 \n\t" //vec4 is aligned, load the two vectors
             "movaps %2, %%xmm1 \n\t"
             "mulps %%xmm1, %%xmm0 \n\t" //x*x, y*y, z*z, w*w
@@ -650,8 +651,42 @@ const color clamped( const color &c, const float min, const float max )
     return( ret );
 }
 
+/**
+  \brief Clamp a copied color to min and max values
+
+        Clamps a color vector to a set min and max value.  This is used
+    to clamp a color to be used for rendering.
+
+    \param c Color to clamp
+    \param min Min clamp value
+    \param max Max clamp value
+    \returns refrence to clamped color
+*/
+color &clamp( color &c, const float min, const float max )
+{
+    asm(    "movaps %1, %%xmm0 \n\t"
+            "movss %2, %%xmm1 \n\t"
+            "shufps $0x00, %%xmm1, %%xmm1 \n\t"
+            "minps %%xmm1, %%xmm0 \n\t"
+            "movss %3, %%xmm1 \n\t"
+            "shufps $0x00, %%xmm1, %%xmm1 \n\t"
+            "maxps %%xmm1, %%xmm0 \n\t"
+            "movaps %%xmm0, %0 \n\t"
+            : "=m"(c)
+            : "m"(c), "m"(max), "m"(min)
+            : "xmm0", "xmm1"
+       );
+    return( c );
+}
+
 
 const vec4 at(const Ray &r, float dist)
 {
-    return( r.o + (dist * r.d));
+    return( r._o + (dist * r._d));
+}
+
+vec4 &at(const Ray &r, float dist, vec &v)
+{
+    v =  r._o + (dist * r._d);
+    return(v);
 }

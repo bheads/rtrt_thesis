@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 
     World world;
     world.fill(15, 2);
-   // world.demo0();
+    world.demo0();
     RayTracer rt(world);
 
 

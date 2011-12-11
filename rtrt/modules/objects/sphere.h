@@ -6,8 +6,8 @@
 
 #include <cmdflags.h>
 
-#include <modules/color.h>
-#include <modules/ray.h>
+#include <modules/vec4.h>
+#include <modules/vec_func.h>
 #include <modules/objects/object.h>
 #include <modules/random.h>
 

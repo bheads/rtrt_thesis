@@ -13,27 +13,32 @@ SOURCES += \
     modules/window.cpp \
     modules/image.cpp \
     modules/basiccamera.cpp \
-    modules/ray.cpp \
     raytracer.cpp \
     modules/world.cpp \
     modules/objects/object.cpp \
     modules/objects/sphere.cpp \
     modules/random.cpp \
-    modules/objects/light.cpp
+    modules/objects/light.cpp \
+    modules/vec_func.cpp
 
 HEADERS += \
     cmdflags.h \
     modules/window.h \
     modules/image.h \
-    modules/color.h \
     modules/basiccamera.h \
-    modules/ray.h \
     raytracer.h \
     modules/world.h \
     modules/objects/object.h \
     modules/objects/sphere.h \
     modules/random.h \
-    modules/objects/light.h
+    modules/objects/light.h \
+    modules/vec4.h \
+    modules/vec_func.h
+
+
+
+
+
 
 
 

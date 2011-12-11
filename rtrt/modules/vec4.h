@@ -117,7 +117,7 @@ struct vec4
     }
 
 
-    inline vec4 &normalize()
+    inline vec4 &fnormalize()
     {
         asm(    "movaps %1, %%xmm0 \n\t"            // load vec into xmm0
                 "movaps %%xmm0, %%xmm2 \n\t"        // save original for later use
@@ -130,6 +130,27 @@ struct vec4
                 "addps %%xmm1, %%xmm0 \n\t"         // add xmm1 to xmm0 (xyzw, xyzw, xyzw, xyzw)
                 "rsqrtps %%xmm0, %%xmm0 \n\t"       // take recipicle sqrt
                 "mulps %%xmm2, %%xmm0 \n\t"         // multiply
+                "movaps %%xmm0, %0 \n\t"
+                : "=m"(*this)
+                : "m"(*this)
+                : "xmm0", "xmm1", "xmm2"
+           );
+        return(*this);
+    }
+
+    inline vec4 &normalize()
+    {
+        asm(    "movaps %1, %%xmm0 \n\t"            // load vec into xmm0
+                "movaps %%xmm0, %%xmm2 \n\t"        // save original for later use
+                "mulps %%xmm0, %%xmm0 \n\t"         // square vec x*x, y*y, z*z, w*w
+                "movaps %%xmm0, %%xmm1 \n\t"        // copy xmm0 to xmm1
+                "shufps $0x4e, %%xmm0, %%xmm0 \n\t" // 4e 0100 1110 (1 0 3 2) xmm1   y, x, w, z
+                "addps %%xmm1, %%xmm0 \n\t"         // add xmm1 to xmm0 = (xy, xy, zw, zw)
+                "movaps %%xmm0, %%xmm1 \n\t"        // copy xmm0 to xmm1
+                "shufps $0xb1, %%xmm0, %%xmm0 \n\t" // b1 1011 0001 (2 3 0 1) xmm1 (zw, zw, xy, xy)
+                "addps %%xmm1, %%xmm0 \n\t"         // add xmm1 to xmm0 (xyzw, xyzw, xyzw, xyzw)
+                "sqrtps %%xmm0, %%xmm0 \n\t"        // take the sqrt of xmm0
+                "divps %%xmm2, %%xmm0 \n\t"         // divide
                 "movaps %%xmm0, %0 \n\t"
                 : "=m"(*this)
                 : "m"(*this)
@@ -157,23 +178,6 @@ struct vec4
            );
         return(ret);
     }
-
-    /*
-
-         movups xmm0, vec1
-         movaps xmm2, xmm0
-         mulps xmm0, xmm0
-         movaps xmm1, xmm0
-         shufps xmm0, xmm1, 0x4e
-         addps xmm0, xmm1
-         movaps xmm1, xmm0
-         shufps xmm1, xmm1, 0x11
-         addps xmm0, xmm1
-         rsqrtps xmm0, xmm0
-         mulps xmm2, xmm0
-         movups vec1, xmm2
-         */
-
 }__attribute__((aligned(16))); ///< Make sure this is 16 byte aligned. Can use movaps
 
 /**
@@ -182,13 +186,21 @@ struct vec4
 */
 typedef vec4 color;
 
+typedef vec4 vec;
+
 struct Ray
 {
-    Ray(vec4 _o, vec4 _d)
-        : o(_o), d(_d)
+    Ray()
+        :_o(),
+         _d()
     {}
 
-    vec4 o, d;
+    Ray(vec4 o, vec4 d)
+        : _o(o),
+          _d(d)
+    {}
+
+    vec4 _o, _d;
 };
 
 #endif

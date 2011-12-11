@@ -18,11 +18,11 @@ void RayTracer::render(Image *_image)
     vec N, L, R;
     float dist, dret;
     bool hit;
-    vec at;
+    vec _at;
     ObjectPtr obj_hit;
 
 
-#pragma omp parallel for private(ray, light_ray, pixel, N, L, R, dist, dret, hit, at, obj_hit) shared(_image)
+#pragma omp parallel for private(ray, light_ray, pixel, N, L, R, dist, dret, hit, _at, obj_hit) shared(_image)
     for(int32_t y = 0; y < _image->height(); ++y)
     {
         for(int32_t x = 0; x < _image->width(); ++x)
@@ -58,15 +58,15 @@ void RayTracer::render(Image *_image)
                 {
                     _image->set(x, y, obj_hit->get_color());
                 } else {
-                    pixel.fill(0);
-                    ray.at(dist, at);
+                    pixel = 0;
+                    at(ray, dist, _at);
 
                     BOOST_FOREACH(const ObjectPtr &light, _world.lights())
                     {
-                        dist = obj_hit->vec_to(at, light->center(), L);
-                        obj_hit->normal(at, N);
+                        dist = obj_hit->vec_to(_at, light->center(), L);
+                        obj_hit->normal(_at, N);
                         L.normalize();
-                        light_ray._o = at;
+                        light_ray._o = _at;
                         light_ray._d = L;
 
                         BOOST_FOREACH(const ObjectPtr &obj, _world.objects())
@@ -81,15 +81,15 @@ void RayTracer::render(Image *_image)
                         if(dist > 0.0f)
                         {
                             // diffuse lighting
-                            float n_dot_l = N.dot(L);
+                            float n_dot_l = dot(N, L);
                             if(n_dot_l > 0.0f)
                             {
-                                pixel += 0.7 * n_dot_l * obj_hit->get_color().cwiseProduct(light->get_color());
+                                pixel += 0.7 * n_dot_l * obj_hit->get_color() * light->get_color();
                             }
 
                             // specular highlights
-                            R = L - (2.0f * N * L.dot(N));
-                            float spec_dot = light_ray._d.dot(R);
+                            R = L - (2.0f * N * dot(L, N));
+                            float spec_dot = dot(light_ray._d, R);
                             if(spec_dot > 0.0f)
                             {
                                 pixel += 0.45 * powf(spec_dot, 20.0f) * light->get_color();
