@@ -18,7 +18,7 @@ public:
     Sphere(const vec &pos, float r, const color &c);
     ~Sphere();
 
-    virtual float collision(const Ray &ray, color &col);
+    virtual float collision(const Ray &ray, float max);
     virtual bool is_light() { return false; }
     virtual vec &at(const Ray &ray, float dist, vec &v);
     virtual vec &vec_to(const vec &from, const vec &to, vec &v);

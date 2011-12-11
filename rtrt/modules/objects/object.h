@@ -15,7 +15,7 @@ public:
     virtual ~Object() {}
 
 
-    virtual float collision(const Ray &ray, color &col) = 0;
+    virtual float collision(const Ray &ray, float max) = 0;
     virtual bool is_light() = 0;
     virtual vec &at(const Ray &ray, float dist, vec &v) = 0;
     virtual vec &vec_to(const vec &from, const vec &to, vec &v) = 0;

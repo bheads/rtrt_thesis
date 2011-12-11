@@ -12,47 +12,101 @@ RayTracer::RayTracer(World &world)
 
 void RayTracer::render(Image *_image)
 {
-    Ray ray;        // current ray
-    Collision collision, light_collision;
-    color light(0.1, 0.1, 0.1);
-    vec N, L;
+    Ray ray, light_ray;        // current ray
+    //Collision collision, light_collision;
+    color pixel;
+    vec N, L, R;
+    float dist, dret;
+    bool hit;
+    vec at;
+    ObjectPtr obj_hit;
 
 
-#pragma omp parallel for private(light, ray, collision, N, L) shared(_image)
+#pragma omp parallel for private(ray, light_ray, pixel, N, L, R, dist, dret, hit, at, obj_hit) shared(_image)
     for(int32_t y = 0; y < _image->height(); ++y)
     {
         for(int32_t x = 0; x < _image->width(); ++x)
         {        
-            //if(cast(_camera.get_ray(ray, x, y), light, collision))
-            if(_world.cast(_camera.get_ray(ray, x, y), collision))
+            // get our ray
+            _camera.get_ray(ray, x, y);
+            hit = false;
+            dist = 100000;
+
+            BOOST_FOREACH(const ObjectPtr &obj, _world.objects())
             {
-                if(collision._obj->is_light())
+                if((dret = obj->collision(ray, dist)) > 0.0f)
                 {
-                    _image->set(x, y, collision._color);
+                    obj_hit = obj;
+                    dist = dret;
+                    hit = true;
+                }
+            }
+
+            BOOST_FOREACH(const ObjectPtr &obj, _world.lights())
+            {
+                if((dret = obj->collision(ray, dist)) > 0.0f)
+                {
+                    obj_hit = obj;
+                    dist = dret;
+                    hit = true;
+                }
+            }
+
+            if(hit)
+            {
+                if(obj_hit->is_light())
+                {
+                    _image->set(x, y, obj_hit->get_color());
                 } else {
-                    //compute shadow vector
-                    if(!_world.shadow(ray, collision, light_collision))
+                    pixel.fill(0);
+                    ray.at(dist, at);
+
+                    BOOST_FOREACH(const ObjectPtr &light, _world.lights())
                     {
-                        collision._obj->vec_to(collision._at, light_collision._obj->center(), L);
-                        collision._obj->normal(collision._at, N);
+                        obj_hit->vec_to(at, light->center(), L);
+                        obj_hit->normal(at, N);
+                        dist = L.norm();
                         L.normalize();
-                        light = collision._color * 0.2f;
+                        light_ray._o = at;
+                        light_ray._d = L;
 
-                         // diffuse lighting
+                        BOOST_FOREACH(const ObjectPtr &obj, _world.objects())
                         {
-
-                            float d = N.dot(L);
-                            if(d > 0.0f)
+                            if((dret = obj->collision(light_ray, dist)) > 0.0f)
                             {
-                                light[0] += 0.3 * d * collision._color[0] * light_collision._color[0];
-                                light[1] += 0.3 * d * collision._color[1] * light_collision._color[1] ;
-                                light[2] += 0.3 * d * collision._color[2] * light_collision._color[2];
+                                dist = -1.0f;
+                                break;
                             }
                         }
 
-                        _image->set(x, y, light);
-                    }
+                        if(dist > 0.0f)
+                        {
+                            // diffuse lighting
+                            float n_dot_l = N.dot(L);
+                            if(n_dot_l > 0.0f)
+                            {
+                                pixel += 0.7 * n_dot_l * obj_hit->get_color().cwiseProduct(light->get_color());
+                            }
 
+                            // specular highlights
+                            R = L - (2.0f * N * L.dot(N));
+                            float spec_dot = light_ray._d.dot(R);
+                            if(spec_dot > 0.0f)
+                            {
+                                pixel += 0.3 * powf(spec_dot, 20.0f) * light->get_color();
+                            }
+
+                        }  // not in shadow
+
+                        // reflections
+
+                        // refractions
+
+
+
+                    } // foreach light
+
+                    _image->set(x, y, pixel);
                 }
             } else
             {

@@ -41,6 +41,10 @@ public:
 
     inline void set(size_t x, size_t y, color c)
     {
+        if(c[0] > 1.0f) c[0] = 1.0f;
+        if(c[1] > 1.0f) c[1] = 1.0f;
+        if(c[2] > 1.0f) c[2] = 1.0f;
+
         c  *= 255;
         register iColor *p = &(_data[at(x,y)]);
         p->r = (uint8_t)c[0];

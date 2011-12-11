@@ -8,6 +8,9 @@ World::World()
 
 void World::fill(uint32_t num, uint32_t lights)
 {
+    _objects.clear();
+    _lights.clear();
+
     for(uint32_t i = 0; i < num; ++i)
     {
         _objects.push_back(boost::shared_ptr<Object>(new Sphere()));
@@ -19,6 +22,18 @@ void World::fill(uint32_t num, uint32_t lights)
     }
 }
 
+void World::demo0()
+{
+    _objects.clear();
+    _lights.clear();
+
+    _objects.push_back(boost::shared_ptr<Object>(new Sphere(vec(-3, 0, 25), 3, vec(1,0,0))));
+    _objects.push_back(boost::shared_ptr<Object>(new Sphere(vec(3, 0, 25), 3, vec(0,1,0))));
+    _objects.push_back(boost::shared_ptr<Object>(new Sphere(vec(0, 0, 40), 7, vec(0,0,1))));
+
+
+    _lights.push_back(boost::shared_ptr<Object>(new Light(vec(0, 5, 5), 0.01, vec(1,1,1))));
+}
 
 
 bool World::cast(const Ray &ray, Collision &collision)
@@ -29,25 +44,27 @@ bool World::cast(const Ray &ray, Collision &collision)
 
     BOOST_FOREACH(const boost::shared_ptr<Object> &obj, _objects)
     {
-        if(((dist = obj->collision(ray, c)) > -1.0f) && dist < min)
+        if(((dist = obj->collision(ray, min)) > -1.0f) && dist < min)
         {
             collision._hit = true;
             collision._obj = obj;
             collision._dist = dist;
             collision._color = c;
             obj->at(ray, dist, collision._at);
+            min = dist;
         }
     }
 
     BOOST_FOREACH(const boost::shared_ptr<Object> &obj, _lights)
     {
-        if(((dist = obj->collision(ray, c)) > -1.0f) && dist < min)
+        if(((dist = obj->collision(ray, min)) > -1.0f) && dist < min)
         {
             collision._hit = true;
             collision._obj = obj;
             collision._dist = dist;
             collision._color = c;
             obj->at(ray, dist, collision._at);
+            min = dist;
         }
     }
 
@@ -70,7 +87,7 @@ bool World::shadow(Ray &ray, const Collision &collision, Collision &light_collis
 
         BOOST_FOREACH(const boost::shared_ptr<Object> &obj, _objects)
         {
-            if(((dist = obj->collision(ray, c)) > -1.0f) && dist < min)
+            if(((dist = obj->collision(ray, min)) > -1.0f) && dist < min)
             {
                 hit = true;
                 break;

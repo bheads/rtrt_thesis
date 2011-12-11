@@ -9,6 +9,7 @@ class Light : public Sphere
 {
 public:
     Light();
+    Light(const vec &pos, float r, const color &c);
 
     virtual bool is_light() { return true; }
 private:
