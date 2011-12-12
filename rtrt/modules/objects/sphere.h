@@ -25,10 +25,14 @@ public:
     virtual const vec &center() { return(_pos); }
     virtual const color&get_color() {return(_c);}
     virtual vec &normal(const vec &at, vec &N);
+
+    virtual inline float diffuse() { return _diffuse; }
+    virtual inline float specular() { return _specular; }
 protected:
     vec _pos;
-    float _r, _dia;
+    float _r, _r2;
     color _c;
+    float _diffuse, _specular;
 };
 
 #endif // SPHERE_H

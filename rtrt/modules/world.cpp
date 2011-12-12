@@ -27,12 +27,13 @@ void World::demo0()
     _objects.clear();
     _lights.clear();
 
-    _objects.push_back(boost::shared_ptr<Object>(new Sphere(vec(-3, 0, 25), 3, vec(1,0,0))));
-    _objects.push_back(boost::shared_ptr<Object>(new Sphere(vec(3, 0, 25), 3, vec(0,1,0))));
-    _objects.push_back(boost::shared_ptr<Object>(new Sphere(vec(0, 0, 40), 7, vec(0,0,1))));
+    _objects.push_back(boost::shared_ptr<Object>(new Sphere(vec(-3, 0, 10), 3, vec(1,0,0))));
+    _objects.push_back(boost::shared_ptr<Object>(new Sphere(vec(3, 0, 10), 3, vec(0,1,0))));
+    _objects.push_back(boost::shared_ptr<Object>(new Sphere(vec(0, 0, 20), 7, vec(0,0,1))));
 
 
-    _lights.push_back(boost::shared_ptr<Object>(new Light(vec(0, 5, 5), 0.01, vec(1,1,1))));
+    _lights.push_back(boost::shared_ptr<Object>(new Light(vec(0, 36, 3), 0.001, vec(1,0,0))));
+    _lights.push_back(boost::shared_ptr<Object>(new Light(vec(-14,-10, 0), 0.001, vec(1,1,1))));
 }
 
 

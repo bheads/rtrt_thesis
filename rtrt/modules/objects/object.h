@@ -21,6 +21,8 @@ public:
     virtual const vec &center() = 0;
     virtual const color&get_color() = 0;
     virtual vec &normal(const vec &at, vec &N) = 0;
+    virtual float diffuse() = 0;
+    virtual float specular() = 0;
 };
 
 

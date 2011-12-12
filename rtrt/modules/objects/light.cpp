@@ -4,7 +4,7 @@ Light::Light()
     : Sphere()
 {
     _r = 0.00001;
-    _dia = _r + _r;
+    _r2 = _r * _r;
     _c = 1;
 }
 

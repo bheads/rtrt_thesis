@@ -3,7 +3,7 @@
 BasicCamera::BasicCamera(uint32_t width, uint32_t height)
     :_width(width),
       _height(height),
-      _C(0, 0, -50),
+      _C(0, 0, -250),
       _p(0, 0, 1),
       _u(-1, 0, 0),
       _v(0, 1, 0),
@@ -28,8 +28,8 @@ Ray &BasicCamera::get_ray(Ray &ray, float x, float y)
 
     ray._d.x = x;
     ray._d.y = y;
-    ray._d.z = 1.01f;
-    ray._d.w = 0;
+    ray._d.z = _f;
+    ray._d.w = 0.0f;
     ray._d.normalize();
 
     return(ray);

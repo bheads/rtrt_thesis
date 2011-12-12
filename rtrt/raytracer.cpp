@@ -30,7 +30,7 @@ void RayTracer::render(Image *_image)
             _camera.get_ray(ray, x, y);
             PerformanceMonitor::instance().RPS.count();
             hit = false;
-            dist = 100000;
+            dist = 1000000;
 
             BOOST_FOREACH(const ObjectPtr &obj, _world.objects())
             {
@@ -41,6 +41,7 @@ void RayTracer::render(Image *_image)
                     hit = true;
                 }
             }
+
 
             BOOST_FOREACH(const ObjectPtr &obj, _world.lights())
             {
@@ -58,7 +59,7 @@ void RayTracer::render(Image *_image)
                 {
                     _image->set(x, y, obj_hit->get_color());
                 } else {
-                    pixel = 0;
+                    pixel = 0.01f; // add global light value
                     at(ray, dist, _at);
 
                     BOOST_FOREACH(const ObjectPtr &light, _world.lights())
@@ -84,15 +85,15 @@ void RayTracer::render(Image *_image)
                             float n_dot_l = dot(N, L);
                             if(n_dot_l > 0.0f)
                             {
-                                pixel += 1 * n_dot_l * obj_hit->get_color() * light->get_color();
+                                pixel += obj_hit->diffuse() * n_dot_l * obj_hit->get_color() * light->get_color();
                             }
 
                             // specular highlights
-                            R = L - (2.0f * N * dot(L, N));
-                            float spec_dot = dot(light_ray._d, R);
+                            //R = L - (2.0f * N * dot(L, N));
+                            float spec_dot = dot(ray._d, L - (2.0f * N * dot(L, N)));
                             if(spec_dot > 0.0f)
                             {
-                                pixel += 0 * powf(spec_dot, 20.0f) * light->get_color();
+                                pixel += obj_hit->specular() * powf(spec_dot, 20.0f) * light->get_color();
                             }
 
                         }  // not in shadow
