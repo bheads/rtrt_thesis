@@ -21,7 +21,9 @@ SOURCES += \
     modules/objects/light.cpp \
     modules/vec_func.cpp \
     modules/performancecounter.cpp \
-    modules/performancemonitor.cpp
+    modules/performancemonitor.cpp \
+    modules/inputhandler.cpp \
+    modules/input.cpp
 
 HEADERS += \
     cmdflags.h \
@@ -37,7 +39,13 @@ HEADERS += \
     modules/vec4.h \
     modules/vec_func.h \
     modules/performancecounter.h \
-    modules/performancemonitor.h
+    modules/performancemonitor.h \
+    modules/inputhandler.h \
+    modules/input.h
+
+
+
+
 
 
 

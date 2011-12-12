@@ -4,7 +4,9 @@
 
 RayTracer::RayTracer(World &world)
     : _camera(FLAGS_width, FLAGS_height),
-      _world(world)
+      _world(world),
+      _aa_x(2),
+      _aa_y(2)
 {
 }
 
@@ -21,13 +23,13 @@ Ray ray;
         for(int32_t x = 0; x < _image->width(); ++x)
         {
              _camera.get_ray(ray, x, y);
-            _image->set(x, y, cast(x, y, ray));
+            _image->set(x, y, cast(ray));
         }
     }
 }
 
 
-color RayTracer::cast(int32_t x, int32_t y, Ray &ray, int32_t level, int32_t max_level)
+color RayTracer::cast(Ray &ray, int32_t level, int32_t max_level)
 {
     Ray light_ray;        // current ray
     color pixel;
@@ -116,7 +118,7 @@ color RayTracer::cast(int32_t x, int32_t y, Ray &ray, int32_t level, int32_t max
                     light_ray._d = (ray._d - (2.0f * N * dot(ray._d, N)));
                     light_ray._d.normalize();
                     light_ray._o = _at + (light_ray._d * 0.00001f);
-                    pixel += obj_hit->reflection() * cast(x, y, light_ray, level + 1, max_level) * obj_hit->get_color();
+                    pixel += obj_hit->reflection() * cast(light_ray, level + 1, max_level) * obj_hit->get_color();
                 }
 
 

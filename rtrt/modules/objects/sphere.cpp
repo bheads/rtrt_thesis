@@ -22,7 +22,7 @@ Sphere::Sphere()
 
     _diffuse = Random::getf();
     _specular = Random::getf();
-    _reflection = 1;// = Random::getf();
+    _reflection = Random::getf();
     // LOG(INFO) << _pos << "  " << _c;
 }
 
