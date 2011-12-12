@@ -5,8 +5,6 @@
 #include <boost/cstdint.hpp>
 #include <cstdlib>
 
-#include <armadillo>
-
 // Project includes
 #include <cmdflags.h>
 #include <modules/vec4.h>

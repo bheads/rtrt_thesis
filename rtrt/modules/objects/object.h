@@ -23,6 +23,7 @@ public:
     virtual vec &normal(const vec &at, vec &N) = 0;
     virtual float diffuse() = 0;
     virtual float specular() = 0;
+    virtual float reflection() = 0;
 };
 
 

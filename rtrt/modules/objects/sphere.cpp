@@ -7,7 +7,8 @@ Sphere::Sphere()
       _r2(0),
       _c(),
       _diffuse(0),
-      _specular(0)
+      _specular(0),
+      _reflection(0)
 {
     _c.x = Random::getf();
     _c.y = Random::getf();
@@ -21,6 +22,7 @@ Sphere::Sphere()
 
     _diffuse = Random::getf();
     _specular = Random::getf();
+    _reflection = 1;// = Random::getf();
     // LOG(INFO) << _pos << "  " << _c;
 }
 
@@ -31,8 +33,9 @@ Sphere::Sphere(const vec &pos, float r, const color &c)
       _r(r),
       _r2(r*r),
       _c(c),
-      _diffuse(0),
-      _specular(0)
+      _diffuse(1),
+      _specular(0.5),
+      _reflection(0)
 {
 }
 

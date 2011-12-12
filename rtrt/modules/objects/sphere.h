@@ -28,11 +28,12 @@ public:
 
     virtual inline float diffuse() { return _diffuse; }
     virtual inline float specular() { return _specular; }
+    virtual inline float reflection() { return _reflection; }
 protected:
     vec _pos;
     float _r, _r2;
     color _c;
-    float _diffuse, _specular;
+    float _diffuse, _specular, _reflection;
 };
 
 #endif // SPHERE_H

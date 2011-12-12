@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
     Image *front_p = &front, *back_p = &back;
 
     World world;
-    world.fill(100, 6);
+    world.fill(50, 5);
     //world.demo0();
     RayTracer rt(world);
 

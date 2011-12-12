@@ -24,7 +24,7 @@ private:
     BasicCamera _camera;
     World &_world;
 
-    bool cast(Ray &ray, color &c, Collision &collision);
+    color cast(int32_t x, int32_t y, Ray &ray, int32_t level = 1, int32_t max_level = 2);
 };
 
 #endif // RAYTRACER_H
