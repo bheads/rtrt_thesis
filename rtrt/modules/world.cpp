@@ -16,6 +16,11 @@ void World::fill(uint32_t num, uint32_t lights)
         _objects.push_back(boost::shared_ptr<Object>(new Sphere()));
     }
 
+    for(uint32_t i = 0; i < num; ++i)
+    {
+        _objects.push_back(boost::shared_ptr<Object>(new Triangle()));
+    }
+
     for(uint32_t i = 0; i < lights; ++i)
     {
         _lights.push_back(boost::shared_ptr<Object>(new Light()));

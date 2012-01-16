@@ -639,9 +639,24 @@ const vec4 cross( const vec4 &a, const vec4 &b )
  *  \param b Secound vec4 in the cross product.
  *  \return Returns the refrence to dest, useful for passing into other functions.
  */
-vec4 &cross( vec4 &dest, const vec4 &a, const vec4 &b )
+vec4 &cross(const vec4 &a, const vec4 &b, vec4 &dest )
 {
-
+    asm(    "movaps %1, %%xmm0 \n\t"
+            "movaps %2, %%xmm1 \n\t"
+            "movaps %%xmm0, %%xmm2 \n\t"
+            "movaps %%xmm1, %%xmm3 \n\t"
+            "shufps $0xC9, %%xmm0, %%xmm0 \n\t" // y z x w 1001 1100 9C
+            "shufps $0xD2, %%xmm1, %%xmm1 \n\t" // z x y w 0111 1000 78
+            "shufps $0xD2, %%xmm2, %%xmm2 \n\t" // 3 0 2 1 1100 1001 C9
+            "shufps $0xC9, %%xmm3, %%xmm3 \n\t" // 3 1 0 2 1101 0010 D2
+            "mulps %%xmm1, %%xmm0 \n\t"
+            "mulps %%xmm3, %%xmm2 \n\t"
+            "subps %%xmm2, %%xmm0 \n\t"
+            "movaps %%xmm0, %0 \n\t"
+            : "=m"(dest)
+            : "m"( a ), "m"( b )
+            : "xmm0", "xmm1", "xmm2", "xmm3"
+       );
     return( dest );
 }
 

@@ -11,6 +11,7 @@
 
 #include <modules/objects/object.h>
 #include <modules/objects/sphere.h>
+#include <modules/objects/triangle.h>
 #include <modules/objects/light.h>
 
 typedef std::vector<boost::shared_ptr<Object> > ObjectList;

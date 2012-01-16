@@ -23,7 +23,8 @@ SOURCES += \
     modules/performancecounter.cpp \
     modules/performancemonitor.cpp \
     modules/inputhandler.cpp \
-    modules/input.cpp
+    modules/input.cpp \
+    modules/objects/triangle.cpp
 
 HEADERS += \
     cmdflags.h \
@@ -41,7 +42,10 @@ HEADERS += \
     modules/performancecounter.h \
     modules/performancemonitor.h \
     modules/inputhandler.h \
-    modules/input.h
+    modules/input.h \
+    modules/objects/triangle.h
+
+
 
 
 

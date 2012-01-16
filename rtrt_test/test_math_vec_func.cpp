@@ -285,6 +285,47 @@ SUITE( VecFuncTests )
         CHECK_CLOSE( tac[2], tbc.z, ACC );
     }
 
+    TEST( CrossProduct_fast )
+    {
+        /*b.set = [1,2,3,0];
+            a.set = [9,8,7,0];
+                assert( cross(a,b).cell == [10,-20,10,0], "Bad Cross Product" );
+                            c.set = 0;
+        */
+        vec4 a( 3, -3, 1 ), b( 4, 9, 2 );
+        vec4 c;
+        cross( a, b, c );
+        CHECK_CLOSE( c.x, -15, ACC );
+        CHECK_CLOSE( c.y, -2, ACC );
+        CHECK_CLOSE( c.z, 39, ACC );
+        CHECK_CLOSE( c.w, 0, ACC );
+
+        vec4 d( 3, -2, -2 ), e( -1, 0, 5 );
+        vec4 f;
+        cross( d, e, f );
+        CHECK_CLOSE( f.x, -10, ACC );
+        CHECK_CLOSE( f.y, -13, ACC );
+        CHECK_CLOSE( f.z, -2, ACC );
+        CHECK_CLOSE( f.w, 0, ACC );
+
+        tvec taa, tab, tac;
+        vec tba, tbb, tbc;
+        taa[0] = tba.x = Random::getf(-10000, 10000);
+        taa[1] = tba.y = Random::getf(-10000, 10000);
+        taa[2] = tba.z = Random::getf(-10000, 10000);
+
+        tab[0] = tbb.x = Random::getf(-10000, 10000);
+        tab[1] = tbb.y = Random::getf(-10000, 10000);
+        tab[2] = tbb.z = Random::getf(-10000, 10000);
+
+        tac = taa.cross(tab);
+        cross(tba, tbb, tbc);
+
+        CHECK_CLOSE( tac[0], tbc.x, ACC );
+        CHECK_CLOSE( tac[1], tbc.y, ACC );
+        CHECK_CLOSE( tac[2], tbc.z, ACC );
+    }
+
     TEST( ColorClamp )
     {
         color a( 5.0, 6.0, -4.5, 1.9 ), b( 0.0, 1.0, 0.5, 3.00 );

@@ -15,7 +15,9 @@ SOURCES += \
 
 HEADERS += \
     ../rtrt/modules/vec4.h \
-    ../rtrt/modules/vec_func.h
+    ../rtrt/modules/vec_func.h \
+    ../rtrt/modules/random.h
+
 
 
 
