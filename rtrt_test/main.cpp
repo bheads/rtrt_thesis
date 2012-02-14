@@ -3,8 +3,8 @@
 
 
 
-int main( int argc, char **argv )
+int main (int argc, char **argv)
 {
-    return UnitTest::RunAllTests();
+	return UnitTest::RunAllTests();
 }
 
