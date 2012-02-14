@@ -3,27 +3,28 @@
 Random *Random::_instance = NULL;
 
 Random::Random()
-    : igen(),
-      gen(igen, boost::uniform_real<>(0, 1))
+	: igen(),
+	  gen (igen, boost::uniform_real<> (0, 1))
 {
-    gen.engine().seed(time(NULL));
+	gen.engine().seed (time (NULL));
 }
 
 float Random::getf()
 {
-    return(Random::instance()->gen());
+	return (Random::instance()->gen());
 }
 
-float Random::getf(float min, float max)
+float Random::getf (float min, float max)
 {
-    return((Random::instance()->gen() * (max - min)) + min);
+	return ( (Random::instance()->gen() * (max - min)) + min);
 }
 
 Random *Random::instance()
 {
-    if(_instance == NULL)
-    {
-        _instance = new Random();
-    }
-    return(_instance);
+	if (_instance == NULL)
+	{
+		_instance = new Random();
+	}
+
+	return (_instance);
 }

@@ -7,30 +7,30 @@
 
 class PerformanceMonitor
 {
-public:
-    inline static PerformanceMonitor &instance()
-    {
-        if(_instance == NULL)
-        {
-            _instance = new PerformanceMonitor();
-        }
+	public:
+		inline static PerformanceMonitor &instance()
+		{
+			if (_instance == NULL)
+			{
+				_instance = new PerformanceMonitor();
+			}
 
-        return(*_instance);
-    }
+			return (*_instance);
+		}
 
-    PerformanceCounter  GL_FPS;
-    PerformanceCounter  RT_FPS;
-    PerformanceCounter  RPS;
+		PerformanceCounter  GL_FPS;
+		PerformanceCounter  RT_FPS;
+		PerformanceCounter  RPS;
 
-    void update();
+		void update();
 
-    friend std::ostream &operator<<(std::ostream &out, PerformanceMonitor &pm);
-private:
-    PerformanceMonitor();
+		friend std::ostream &operator<< (std::ostream &out, PerformanceMonitor &pm);
+	private:
+		PerformanceMonitor();
 
-    static PerformanceMonitor *_instance;
+		static PerformanceMonitor *_instance;
 };
 
-std::ostream &operator<<(std::ostream &out, PerformanceMonitor &pm);
+std::ostream &operator<< (std::ostream &out, PerformanceMonitor &pm);
 
 #endif // PERFORMANCEMONITOR_H

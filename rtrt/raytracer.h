@@ -13,20 +13,20 @@
 
 class RayTracer
 {
-public:
-    RayTracer(World &world);
+	public:
+		RayTracer (World &world);
 
 
 
-    void render(Image *_image);
+		void render (Image *_image);
 
-private:
-    BasicCamera _camera;
-    World &_world;
+	private:
+		BasicCamera _camera;
+		World &_world;
 
-    float _aa_x, _aa_y;
+		float _aa_x, _aa_y;
 
-    color cast(Ray &ray, int32_t level = 1, int32_t max_level = 2);
+		color cast (Ray &ray, int32_t level = 1, int32_t max_level = 2);
 };
 
 #endif // RAYTRACER_H

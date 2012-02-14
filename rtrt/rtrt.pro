@@ -1,9 +1,11 @@
 
- CONFIG -= app_bundle
+#CONFIG -= app_bundle
 
-QMAKE_CXXFLAGS += -sse -sse2 -fopenmp
+#QMAKE_CXXFLAGS += -sse -sse2 -fopenmp
+QMAKE_CXXFLAGS += -fopenmp
 
-LIBS += -lpthread -lgflags -lglog -framework Cocoa -framework AGL -framework OpenGL -lglfw -lgomp
+LIBS += -lpthread -lgflags -lglog -gl -glu -lglfw -lgomp
+#LIBS += -lpthread -lgflags -lglog -framework Cocoa -framework AGL -framework OpenGL -lglfw -lgomp
 
 QT -= core gui
 
@@ -46,7 +48,11 @@ HEADERS += \
     modules/objects/triangle.h
 
 
+LIBS            += -L../../ursus/bin -lUrsus
 
+INCLUDEPATH     += ../../ursus/Ursus
+
+QMAKE_CXXFLAGS  += -D ENABLE_ASSERTS
 
 
 

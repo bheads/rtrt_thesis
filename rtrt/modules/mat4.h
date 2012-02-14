@@ -5,11 +5,11 @@
 
 struct mat4
 {
-public:
+	public:
 
 
 
-    mat4();
+		mat4();
 };
 
 #endif // MAT4_H

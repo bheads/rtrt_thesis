@@ -9,17 +9,17 @@
 
 class Input
 {
-public:
-    static Input &instance();
+	public:
+		static Input &instance();
 
-private:
-    static Input *_instance;
-    static
+	private:
+		static Input *_instance;
+		static
 
-    std::vector<InputHandler *> _handlers;
+		std::vector<InputHandler *> _handlers;
 
 
-    Input();
+		Input();
 };
 
 #endif // INPUT_H

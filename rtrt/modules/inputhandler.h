@@ -3,10 +3,10 @@
 
 class InputHandler
 {
-public:
-    InputHandler();
+	public:
+		InputHandler();
 
-    virtual void key_press(int key, int action) = 0;
+		virtual void key_press (int key, int action) = 0;
 };
 
 #endif // INPUTHANDLER_H

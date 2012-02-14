@@ -10,19 +10,19 @@
 
 class Random
 {
-public:
+	public:
 
-    static float getf();
-    static float getf(float min, float max);
-    static Random *instance();
+		static float getf();
+		static float getf (float min, float max);
+		static Random *instance();
 
-private:
-    static Random *_instance;
+	private:
+		static Random *_instance;
 
-    boost::mt19937 igen;
-    boost::variate_generator<boost::mt19937, boost::uniform_real<> > gen;
+		boost::mt19937 igen;
+		boost::variate_generator<boost::mt19937, boost::uniform_real<> > gen;
 
-    Random();
+		Random();
 };
 
 #endif // RANDOM_H
