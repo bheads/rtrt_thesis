@@ -3,5 +3,7 @@ src/*.swp
 *.swo
 *.DS_Store
 rtrt-build-desktop-Desktop_Qt_4_7_3_for_GCC__Qt_SDK__Release/*
-
 rtrt/rtrt.pro.user
+*.o
+*Makefile
+rtrt-build-desktop*
